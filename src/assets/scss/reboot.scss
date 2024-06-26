@@ -1,4 +1,8 @@
 #wrapper {
-  min-height: 100vh;
+  height: 100vh;
   @apply bg-bg-main text-fg;
+}
+
+a {
+  color: currentColor;
 }

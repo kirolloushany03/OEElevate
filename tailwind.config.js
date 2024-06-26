@@ -4,6 +4,7 @@ module.exports = {
     "./src/**/*.{html,ts}"
   ],
   darkMode: ['class', 'dark'],
+  important: '#wrapper',
   theme: {
     extend: {
       colors: {
@@ -15,7 +16,17 @@ module.exports = {
         fg: {
           DEFAULT: 'var(--default-fg)',
           primary: 'var(--primary-fg)',
-        }
+          muted: 'var(--muted-fg)',
+        },
+        primary: {
+          DEFAULT: 'var(--primary-bg)',
+          light: 'var(--primary-light)',
+          dark: 'var(--primary-dark)',
+          fg: 'var(--primary-fg)',
+        },
+        muted: {
+          DEFAULT: 'var(--muted-fg)',
+        },
       },
     },
     plugins: [],

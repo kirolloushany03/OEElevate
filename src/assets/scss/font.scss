@@ -1,0 +1,21 @@
+.dx-theme-generic-typography {
+  * {
+    font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  }
+
+  .fas,
+  .fa-classic,
+  .fa-solid,
+  .far,
+  .fa-regular {
+    font-family: "Font Awesome 6 Free";
+  }
+
+  h1,
+  h4,
+  h5,
+  h6 {
+    font-weight: bold;
+  }
+}

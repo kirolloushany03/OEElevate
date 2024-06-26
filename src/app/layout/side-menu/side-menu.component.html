@@ -1,0 +1,10 @@
+<nav class="sidebar h-full">
+  <ul class="flex flex-col h-full justify-center gap-3 px-6 bg-bg">
+    <li class="" *ngFor="let item of items">
+      <a class="nav-link text-lg text-muted" [routerLink]="item.link" routerLinkActive="text-primary">
+        <i class="me-3 text-2xl fa-solid {{item.icon}}"></i>
+        {{item.title}}
+      </a>
+    </li>
+  </ul>
+</nav>
