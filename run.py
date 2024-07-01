@@ -1,4 +1,4 @@
-#!/home/kk/desktop_testing/oee_project/oee/bin/python
+#!oee/bin/python
 
 from poee import app
 

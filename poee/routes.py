@@ -7,7 +7,6 @@ from flask_jwt_extended import create_access_token, jwt_required,get_jwt_identit
 from sqlalchemy import func
 from datetime import datetime
 
-
 # -------------------------------------------(register)--------------------------------------------------
 @app.route("/api/auth/register", methods=['POST'])
 def register():
@@ -20,7 +19,7 @@ def register():
 
     if not all([username, company_name, email, password]):
         return jsonify({"error": "Missing required field"}), 400
-    
+
     existing_user_email= User.query.filter_by(email=email).first()
     existing_user_username= User.query.filter_by(username=username).first()
 
@@ -32,7 +31,7 @@ def register():
             error_message += ' and ' if error_message else ''
             error_message += 'the username is already taken choose another one'
         return jsonify({"error":error_message}), 400
-        
+
     hashed_password = pbkdf2_sha256.hash(password)
 
     new_user = User(
@@ -61,7 +60,7 @@ def login():
     if email and pbkdf2_sha256.verify(password, user.password):
         access_token = create_access_token(identity=user.id)
         return {"access_token": access_token}
-    
+
     return jsonify({"message":"Inavalid credentials"}), 400
 
 # -------------------------------------------(get user info)--------------------------------------------------
@@ -101,9 +100,9 @@ def create_machine():
     existing_machine = Machine.query.filter_by(machine_name=machine_name).first()
     if existing_machine:
         return jsonify({"errors":"the machine name already exists"}), 400
-    
+
     new_machine = Machine(machine_name=machine_name, user_id=user_id)
-    
+
     db.session.add(new_machine)
     db.session.commit()
 
@@ -125,7 +124,7 @@ def get_all_machines_info():
 
     if not user:
         return jsonify({"error":"user not found"}), 200
-    
+
     machines = Machine.query.filter_by(user_id=user_id).all()
 
     if not machines:
@@ -149,7 +148,7 @@ def get_all_machines_info():
 @jwt_required()
 def get_machine_by_id(id):
     user_id = get_jwt_identity()
-    
+
     # Fetch the machine by ID and ensure it belongs to the current user
     machine = Machine.query.filter_by(id=id, user_id=user_id).first()
     if not machine:
@@ -218,19 +217,19 @@ def get_machine_summary():
         latest_entries = OEERecord.query.filter_by(machine_id=machine.id) \
                                         .order_by(OEERecord.created_at.desc()) \
                                         .limit(5).all()
-        
+
         total_good_units = db.session.query(func.sum(OEERecord.good_units)) \
                                     .filter_by(machine_id=machine.id).scalar() or 0
-    
+
         average_availability = db.session.query(func.avg(OEERecord.availability)) \
                                         .filter_by(machine_id=machine.id).scalar() or 0
-        
+
         average_performance = db.session.query(func.avg(OEERecord.performance)) \
                                         .filter_by(machine_id=machine.id).scalar() or 0
-        
+
         average_quality = db.session.query(func.avg(OEERecord.quality)) \
                                     .filter_by(machine_id=machine.id).scalar() or 0
-        
+
         average_oee = db.session.query(func.avg(OEERecord.oee)) \
                                 .filter_by(machine_id=machine.id).scalar() or 0
 
