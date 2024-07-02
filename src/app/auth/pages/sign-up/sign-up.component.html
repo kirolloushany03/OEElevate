@@ -1,1 +1,44 @@
-<p>sign-up works!</p>
+<h1 class="mb-4">Sign Up </h1>
+<form (submit)="onSignUp($event)" class="flex flex-col gap-3 w-5/6 max-w-96">
+  <dx-form [formData]="signUpForm">
+    <dxi-item dataField="username">
+      <dxi-validation-rule type="required" message="Username is required"></dxi-validation-rule>
+      <dxi-validation-rule type="stringLength" [min]="3" message="Username must be at least 3 characters long"></dxi-validation-rule>
+    </dxi-item>
+
+    <dxi-item dataField="company_name">
+      <dxi-validation-rule type="required" message="Company name is required"></dxi-validation-rule>
+      <dxi-validation-rule type="stringLength" [min]="3" message="Company name must be at least 3 characters long"></dxi-validation-rule>
+    </dxi-item>
+
+    <dxi-item dataField="email">
+      <dxi-validation-rule type="required" message="Email is required"></dxi-validation-rule>
+      <dxi-validation-rule type="email" message="Email is invalid"></dxi-validation-rule>
+    </dxi-item>
+
+    <dxi-item dataField="password" type="password" [editorOptions]="{mode:'password'}">
+      <dxi-validation-rule type="required" message="Password is required"></dxi-validation-rule>
+      <dxi-validation-rule type="pattern" [pattern]="passwordPattern" message="Password must contain at least 8 characters, 1 number, 1 uppercase and 1 lowercase letter"></dxi-validation-rule>
+    </dxi-item>
+
+    <dxi-item dataField="confirmPassword" type="password" [editorOptions]="{mode:'password'}">
+      <dxi-validation-rule type="required" message="Password is required"></dxi-validation-rule>
+      <dxi-validation-rule type="compare" [comparisonTarget]="getPassword.bind(this)" message="Must be the same as password"></dxi-validation-rule>
+    </dxi-item>
+
+    <dxi-item itemType="button">
+      <dxo-button-options [useSubmitBehavior]="true" text="Log in"></dxo-button-options>
+    </dxi-item>
+  </dx-form>
+</form>
+
+<p *ngIf="signUpError$ | async" class="text-danger">
+  {{ signUpError$ | async }}
+</p>
+
+<p>
+  Already have an account?
+  <a routerLink="/login" class="text-primary">
+    Log in
+  </a>
+</p>

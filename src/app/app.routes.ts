@@ -4,6 +4,11 @@ import { loggedInGuard, loggedOutGuard } from './auth/logged-in.guard';
 export const routes: Routes = [
   {
     path: '',
+    pathMatch: 'full',
+    redirectTo: 'dashboard',
+  },
+  {
+    path: '',
     loadComponent: () => import('./layout/layout.component').then(m => m.LayoutComponent),
     children: [
       {
@@ -20,7 +25,7 @@ export const routes: Routes = [
     canActivate: [loggedInGuard]
   },
   {
-    path: 'auth',
+    path: '',
     children: [
       {
         path: 'login',
@@ -32,10 +37,5 @@ export const routes: Routes = [
       }
     ],
     canActivate: [loggedOutGuard]
-  },
-  {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'dashboard',
   }
 ];

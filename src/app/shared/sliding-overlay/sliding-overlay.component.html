@@ -1,0 +1,12 @@
+<div [class.show]="show" class="sliding-overlay-container">
+  <div class="overlay-backdrop" (click)="slideOut()"></div>
+  <div class="overlay-content py-4 px-8">
+    <div class="flex mb-5">
+      <h1><ng-content select="h1"></ng-content></h1>
+      <button title="Close Overlay" (click)="slideOut()" class="ms-auto">
+        <i class="fa-solid fa-x text-3xl"></i>
+      </button>
+    </div>
+    <ng-content></ng-content>
+  </div>
+</div>

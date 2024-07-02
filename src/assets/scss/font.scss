@@ -20,7 +20,7 @@ $font-weights: (
 
 @font-face {
   font-family: "Open Sans";
-  src: url('/assets/fonts/OpenSans/OpenSans-Variable.tff');
+  src: url('/assets/fonts/Open_Sans/OpenSans-Variable.ttf');
 }
 
 .dx-theme-generic-typography {
@@ -29,6 +29,7 @@ $font-weights: (
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   }
 
+  .fa,
   .fas,
   .fa-classic,
   .fa-solid,

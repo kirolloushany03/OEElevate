@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.sliding-overlay-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  overflow: hidden;
+  pointer-events: none;
+
+  &.show {
+    pointer-events: auto;
+
+    .overlay-backdrop {
+      opacity: 1;
+    }
+
+    .overlay-content {
+      transform: translateX(0);
+    }
+  }
+}
+
+.overlay-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  @apply backdrop-blur-lg;
+}
+
+.overlay-content {
+  position: fixed;
+  right: 0;
+  height: 100%;
+  width: 90%;
+  max-width: 500px;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  background-color: var(--default-bg);
+}

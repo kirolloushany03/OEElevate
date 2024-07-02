@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { Store } from '@ngxs/store';
+import { Logout } from '../../auth/state/auth.actions';
 
 @Component({
   selector: 'app-side-menu',
@@ -13,6 +15,8 @@ import { RouterModule } from '@angular/router';
   styleUrl: './side-menu.component.scss'
 })
 export class SideMenuComponent {
+  constructor(private store: Store) { }
+
   items = [
     {
       title: 'Dashboard',
@@ -33,11 +37,10 @@ export class SideMenuComponent {
       title: 'Settings',
       icon: 'fa-gear',
       link: '/settings'
-    },
-    {
-      title: 'Logout',
-      icon: 'fa-sign-out-alt',
-      link: '/logout'
     }
   ]
+
+  logout() {
+    this.store.dispatch(new Logout());
+  }
 }

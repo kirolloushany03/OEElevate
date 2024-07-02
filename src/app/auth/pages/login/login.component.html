@@ -1,6 +1,6 @@
 <h1 class="mb-4">Login</h1>
 <form (submit)="onLogin($event)" class="flex flex-col gap-3 w-5/6 max-w-96">
-  <dx-form [formData]="loginForm">
+  <dx-form [formData]="loginForm" #formComponent>
     <dxi-item dataField="email">
       <dxi-validation-rule type="required" message="Email is required"></dxi-validation-rule>
       <dxi-validation-rule type="email" message="Email is invalid"></dxi-validation-rule>
@@ -16,3 +16,14 @@
     </dxi-item>
   </dx-form>
 </form>
+
+<p *ngIf="loginError$ | async" class="text-danger">
+  {{loginError$ | async}}
+</p>
+
+<p>
+  Don't have an account?
+  <a routerLink="/sign-up" class="text-primary">
+    Sign up
+  </a>
+</p>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Store } from '@ngxs/store';
 import TextBox, { Properties as TextBoxProperties } from 'devextreme/ui/text_box';
+import { GetUserInfo } from './auth/state/auth.actions';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +12,7 @@ import TextBox, { Properties as TextBoxProperties } from 'devextreme/ui/text_box
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  constructor() {
+  constructor(private store: Store) {
     const devicesConfig = [
       { deviceType: 'desktop' as const },
       { deviceType: 'tablet' as const },
@@ -26,6 +28,7 @@ export class AppComponent {
         }
       });
     });
+
+    this.store.dispatch(new GetUserInfo())
   }
-  title = 'oee-fusion-frontend';
 }

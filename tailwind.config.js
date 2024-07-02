@@ -24,6 +24,12 @@ module.exports = {
           dark: 'var(--primary-dark)',
           fg: 'var(--primary-fg)',
         },
+        danger: {
+          DEFAULT: 'var(--danger-bg)',
+          // light: 'var(--danger-light)',
+          dark: 'var(--danger-dark)',
+          fg: 'var(--danger-fg)',
+        },
         muted: {
           DEFAULT: 'var(--muted-fg)',
         },
