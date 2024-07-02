@@ -27,6 +27,9 @@ module.exports = {
         muted: {
           DEFAULT: 'var(--muted-fg)',
         },
+        sidebar: {
+          DEFAULT: 'var(--sidebar-bg)',
+        },
       },
     },
     plugins: [],

@@ -1,1 +1,19 @@
+ .dx-datagrid{
+  & > .dx-datagrid-headers,
+  & > .dx-datagrid-rowsview,
+  & > .dx-datagrid-total-footer {
+    background-color: var(--default-bg);
+  }
 
+  & > .dx-datagrid-headers {
+    border-radius: 20px 20px 0 0;
+  }
+
+  & > .dx-datagrid-rowsview {
+    border-radius: 0 0 20px 20px;
+  }
+
+  & .dx-row > td {
+    padding: 13px 25px;
+  }
+}

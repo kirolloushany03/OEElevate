@@ -1,3 +1,6 @@
 <div class="layout-grid">
   <app-side-menu [style.grid-area]="'sidebar'"></app-side-menu>
+  <main [style.grid-area]="'main'" class="px-8 py-5">
+    <router-outlet></router-outlet>
+  </main>
 </div>

@@ -1,6 +1,31 @@
+$font-weights: (
+  "Thin": 100,
+  "ExtraLight": 200,
+  "Light": 300,
+  "Normal": 400,
+  "Medium": 500,
+  "SemiBold": 600,
+  "Bold": 700,
+  "Extrabold": 800,
+  "Black": 900
+);
+
+// @each $name, $weight in $font-weights {
+//   @font-face {
+//     font-family: "Kanit";
+//     font-weight: $weight;
+//     src: url('/assets/fonts/Kanit/Kanit-#{$name}.ttf') format('trueType');
+//   }
+// }
+
+@font-face {
+  font-family: "Open Sans";
+  src: url('/assets/fonts/OpenSans/OpenSans-Variable.tff');
+}
+
 .dx-theme-generic-typography {
   * {
-    font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    font-family: "Open Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   }
 

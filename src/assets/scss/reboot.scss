@@ -1,6 +1,10 @@
 #wrapper {
   height: 100vh;
-  @apply bg-bg-main text-fg;
+  @apply text-fg;
+
+  background: fixed radial-gradient(700px circle at 10% 90%, #00ffaa1a, transparent),
+    radial-gradient(800px circle at 90% 10%, #00c3ff1a, transparent)
+      var(--main-bg);
 }
 
 a {

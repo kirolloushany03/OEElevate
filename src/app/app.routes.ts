@@ -10,6 +10,11 @@ export const routes: Routes = [
         path: 'dashboard',
         pathMatch: 'full',
         loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent)
+      },
+      {
+        path: 'machines',
+        pathMatch: 'full',
+        loadComponent: () => import('./machines/machines.component').then(m => m.MachinesComponent)
       }
     ],
     canActivate: [loggedInGuard]

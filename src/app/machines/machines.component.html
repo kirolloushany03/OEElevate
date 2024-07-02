@@ -1,0 +1,12 @@
+<div class="h-full flex flex-col">
+  <h1 class="mb-5">Machines</h1>
+
+  <div class="flex-1">
+    <dx-data-grid class="h-full" [dataSource]="machines" [showColumnLines]="false" [showRowLines]="false">
+      <dxi-column dataField="id" caption="ID" alignment="start" width="auto"></dxi-column>
+      <dxi-column dataField="name" caption="Name"></dxi-column>
+      <dxi-column dataField="good_units" caption="Good Units"></dxi-column>
+      <dxi-column dataField="average_oee" caption="Average OEE"></dxi-column>
+    </dx-data-grid>
+  </div>
+</div>
