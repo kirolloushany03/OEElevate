@@ -19,12 +19,13 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   return next(req).pipe(
-    catchError((error) => {
-      if (error.status === 401) {
-        store.dispatch(new Logout());
-        console.log('(UNAUTHORIZED) Logging out due to 401 error');
+    tap({
+      error: (error) => {
+        if (error.status === 401) {
+          store.dispatch(new Logout());
+          console.log('(UNAUTHORIZED) Logging out due to 401 error');
+        }
       }
-      return of(null as any);
     })
   );
 };

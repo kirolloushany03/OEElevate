@@ -24,7 +24,7 @@ export class AppComponent {
         device: deviceConfig,
         options: {
           validationMessageMode: 'always',
-          valueChangeEvent: 'blur'
+          valueChangeEvent: 'change'
         }
       });
     });

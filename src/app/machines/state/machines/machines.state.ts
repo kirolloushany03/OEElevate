@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { State, Action, Selector, StateContext } from '@ngxs/store';
 import { AddMachine, GetMachines } from './machines.actions';
 import { Machine, MachineSummary } from '../../../models/machine';
-import { tap, timer } from 'rxjs';
+import { map, tap, timer } from 'rxjs';
 import { MachineService } from '../../service/machine.service';
+import { log } from '../../../utlils/operators';
 
 export interface MachinesStateModel {
   machines: MachineSummary[];
@@ -29,6 +30,7 @@ export class MachinesState {
     return this.machineService.addMachine(action.payload).pipe(
       tap({
         next: (machine: any) => {
+          ctx.dispatch(new GetMachines())
         },
         error: (error) => console.error('Error adding machine', error)
       })
@@ -37,6 +39,13 @@ export class MachinesState {
 
   @Action(GetMachines)
   getMachines(ctx: StateContext<MachinesStateModel>, action: GetMachines) {
-    return;
+    return this.machineService.getMachinesSummary().pipe(
+      tap({
+        next: (machines: any) => {
+          ctx.patchState({ machines });
+        },
+        error: (error) => console.error('Error getting machines', error)
+      })
+    );
   }
 }

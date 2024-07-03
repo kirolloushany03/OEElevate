@@ -4,13 +4,25 @@
   <div class="flex-1">
     <dx-data-grid class="h-full" [dataSource]="machines$ | async" [showColumnLines]="false" [showRowLines]="false">
       <dxi-column dataField="id" caption="ID" alignment="start" width="auto"></dxi-column>
-      <dxi-column dataField="name" caption="Name"></dxi-column>
-      <dxi-column dataField="good_units" caption="Good Units"></dxi-column>
+      <dxi-column dataField="machine_name" caption="Name"></dxi-column>
+      <dxi-column dataField="total_good_units" caption="Good Units"></dxi-column>
       <dxi-column dataField="average_availability" caption="Average availability"></dxi-column>
       <dxi-column dataField="average_performance" caption="Average performance"></dxi-column>
       <dxi-column dataField="average_quality" caption="Average quality"></dxi-column>
       <dxi-column dataField="average_oee" caption="Average OEE"></dxi-column>
+      <dxi-column type="buttons" width="auto">
+        <dxi-button hint="Edit" icon="edit" template="EditButtonTemplate">
+          <button title="Edit Machine" *dxTemplate="let button of 'EditButtonTemplate'">
+            <i class="fa-solid fa-pencil"></i>
+          </button>
+        </dxi-button>
+        <dxi-button hint="Delete" icon="trash"></dxi-button>
+      </dxi-column>
 
+      <dxo-master-detail [enabled]="true" template="LatestEntriesTemplate">
+        <oee-entries-table *dxTemplate="let entries of 'LatestEntriesTemplate'"
+                           [entries]="entries?.data?.latestEntries ?? null"></oee-entries-table>
+      </dxo-master-detail>
 
       <dxo-paging [enabled]="false"></dxo-paging>
       <dxo-load-panel [enabled]="false" [showIndicator]="true"></dxo-load-panel>
@@ -29,10 +41,12 @@
   <h1>Add machine</h1>
 
   <form (submit)="addMachine($event)">
-    <dx-form [formData]="machineForm" #machineForm>
-      <dxi-item dataField="name" [editorOptions]="{ placeholder: 'Name' }">
+    <dx-form [formData]="machineForm" (onFieldDataChanged)="onChange($event)" #machineFormComponent>
+      <dxi-item dataField="machine_name" caption="Name" [editorOptions]="{ placeholder: 'Name' }">
+        <dxo-label text="Name"></dxo-label>
         <dxi-validation-rule type="required" message="Name is required"></dxi-validation-rule>
-        <dxi-validation-rule type="stringLength" [min]="3" [max]="30" message="Name must be between 3 and 30 characters"></dxi-validation-rule>
+        <dxi-validation-rule type="stringLength" [min]="3" [max]="30"
+                             message="Name must be between 3 and 30 characters"></dxi-validation-rule>
       </dxi-item>
 
       <dxi-item itemType="button">

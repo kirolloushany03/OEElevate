@@ -39,9 +39,10 @@ export class SignUpComponent {
   onSignUp(e: any) {
     e.preventDefault();
     const validationGroup = this.formComponent?.instance.validate();
-    console.log('validation says:', validationGroup?.isValid);
 
-    if (validationGroup?.isValid)
-      this.store.dispatch(new SignUp(this.signUpForm))
+    if (!validationGroup?.isValid)
+      return;
+
+    this.store.dispatch(new SignUp(this.signUpForm))
   }
 }

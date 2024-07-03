@@ -11,7 +11,7 @@ export interface MachineForm {
 }
 
 export interface MachineSummary extends Machine {
-  good_units: number;
+  total_good_units: number;
   average_availability: number;
   average_performance: number;
   average_quality: number;

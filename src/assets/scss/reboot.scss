@@ -10,3 +10,9 @@
 a {
   color: currentColor;
 }
+
+input {
+  color: currentColor;
+  border-bottom: 1px solid currentColor;
+  padding: 0.5rem 1rem;
+}

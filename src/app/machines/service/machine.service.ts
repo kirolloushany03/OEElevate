@@ -16,4 +16,8 @@ export class MachineService {
   getMachines() {
     return this.crud.read('/machines');
   }
+
+  getMachinesSummary() {
+    return this.crud.read('/machines/summary');
+  }
 }
