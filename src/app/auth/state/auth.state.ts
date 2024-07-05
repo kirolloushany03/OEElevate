@@ -68,6 +68,13 @@ export class AuthState {
                         loggedIn: true
                     });
                 },
+                error: (error: any) => {
+                    patchState({
+                        token: null,
+                        loggedIn: false
+                    });
+                    dispatch(new Logout());
+                }
             }),
         );
     }
@@ -92,11 +99,16 @@ export class AuthState {
     }
 
     @Action(Logout)
-    logout({ patchState }: StateContext<AuthStateModel>) {
+    logout({ patchState, getState }: StateContext<AuthStateModel>) {
+        console.log('Logging out')
+
         patchState({
             token: null,
             loggedIn: false,
         });
-        this.router.navigate(['/']);
+
+        console.log('Logged out, redirecting to login page', getState())
+
+        localStorage.removeItem('token');
     }
 }

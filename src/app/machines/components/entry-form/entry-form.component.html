@@ -1,7 +1,53 @@
 <oee-sliding-overlay #slidingOverlay>
-  <h1>Add machine</h1>
+  <h1>Add Entry</h1>
 
-  <form (submit)="onSubmit($event)">
+  <p class="italic mb-6">
+    (please enter time in minutes)
+  </p>
+  <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+    <div class="flex flex-wrap gap-3">
+      <div>
+        <label for="runtime">Run time</label>
+        <input type="number" id="runtime" formControlName="run_time">
+      </div>
 
+      <div>
+        <label for="planned_time">Planned production time</label>
+        <input type="number" id="planned_time" formControlName="planned_production_time">
+      </div>
+
+      <div>
+        <label for="good_units">Good units</label>
+        <input type="number" id="good_units" formControlName="good_units">
+      </div>
+
+      <div>
+        <label for="total_units">Total units</label>
+        <input type="number" id="total_units" formControlName="total_units">
+      </div>
+
+      <div>
+        <label for="ideal_cycle_time">Ideal cycle time</label>
+        <input type="number" id="ideal_cycle_time" formControlName="ideal_cycle_time">
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 my-4">
+      <ng-container *ngFor="let calculation of getCalculations()">
+        <div class="font-bold text-end">{{ calculation[0] }}:</div>
+        <div class="ps-3">{{ (calculation[1] !== undefined && calculation[1] !== null) ? (calculation[1]|percent:'1.1-2') : '...' }}</div>
+      </ng-container>
+    </div>
+
+    <dx-date-box formControlName="date"></dx-date-box>
+
+    <div class="flex justify-end mt-10">
+      <button class="btn">
+        Cancel
+      </button>
+      <button class="default-btn">
+        Save
+      </button>
+    </div>
   </form>
 </oee-sliding-overlay>

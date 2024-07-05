@@ -7,7 +7,7 @@ $font-weights: (
   "SemiBold": 600,
   "Bold": 700,
   "Extrabold": 800,
-  "Black": 900
+  "Black": 900,
 );
 
 // @each $name, $weight in $font-weights {
@@ -20,14 +20,12 @@ $font-weights: (
 
 @font-face {
   font-family: "Open Sans";
-  src: url('/assets/fonts/Open_Sans/OpenSans-Variable.ttf');
+  src: url("/assets/fonts/Open_Sans/OpenSans-Variable.ttf");
 }
 
 .dx-theme-generic-typography {
-  * {
-    font-family: "Open Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  }
+  font-family: "Open Sans", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
   .fa,
   .fas,

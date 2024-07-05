@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Logout } from '../../auth/state/auth.actions';
 
@@ -15,7 +15,7 @@ import { Logout } from '../../auth/state/auth.actions';
   styleUrl: './side-menu.component.scss'
 })
 export class SideMenuComponent {
-  constructor(private store: Store) { }
+  constructor(private store: Store, private router: Router) { }
 
   items = [
     {
@@ -41,6 +41,9 @@ export class SideMenuComponent {
   ]
 
   logout() {
-    this.store.dispatch(new Logout());
+    this.store.dispatch(new Logout()).subscribe(() => {
+      console.log("Logged out, redirecting to login page")
+      this.router.navigate(['/login'])
+    });
   }
 }

@@ -9,6 +9,8 @@ import { CommonModule } from '@angular/common';
 import { SlidingOverlayComponent } from '../shared/sliding-overlay/sliding-overlay.component';
 import { MachineService } from './service/machine.service';
 import { EntriesTableComponent } from './components/entries-table/entries-table.component';
+import { EntryFormComponent } from './components/entry-form/entry-form.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-machines',
@@ -18,7 +20,9 @@ import { EntriesTableComponent } from './components/entries-table/entries-table.
     DxDataGridModule,
     SlidingOverlayComponent,
     DxFormModule,
-    EntriesTableComponent
+    EntriesTableComponent,
+    EntryFormComponent,
+    RouterModule
   ],
   templateUrl: './machines.component.html',
   styleUrl: './machines.component.scss'
@@ -27,6 +31,7 @@ export class MachinesComponent {
   machines$: Observable<MachineSummary[]>;
   @ViewChild('machineFormOverlay') slidingOverlay?: SlidingOverlayComponent;
   @ViewChild('machineFormComponent') machineFormComponent?: DxFormComponent;
+  @ViewChild('entryFormComponent') entryFormComponent?: EntryFormComponent;
 
   machineForm:MachineForm;
 
@@ -36,10 +41,6 @@ export class MachinesComponent {
     this.machineForm = {
       machine_name: ''
     }
-  }
-
-  onChange(event: any) {
-    // this.machineForm[event.dataField as keyof MachineForm] = event.value;
   }
 
   openMachineForm() {
@@ -65,8 +66,17 @@ export class MachinesComponent {
         this.resetForm();
       },
       error: (error) => {
-
       }
     });
+  }
+
+  log(data: any) {
+    console.log('machine: ', data);
+    return data;
+  }
+
+  /* ENTRIES */
+  openEntryForm(data?: any) {
+    this.entryFormComponent?.open(data);
   }
 }

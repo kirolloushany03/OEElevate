@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { State, Action, Selector, StateContext } from '@ngxs/store';
-import { AddMachine, GetMachines } from './machines.actions';
+import { AddMachine, AddOeeRecord, GetMachines } from './machines.actions';
 import { Machine, MachineSummary } from '../../../models/machine';
 import { map, tap, timer } from 'rxjs';
 import { MachineService } from '../../service/machine.service';
@@ -45,6 +45,18 @@ export class MachinesState {
           ctx.patchState({ machines });
         },
         error: (error) => console.error('Error getting machines', error)
+      })
+    );
+  }
+
+  @Action(AddOeeRecord)
+  addOeeRecord(ctx: StateContext<MachinesStateModel>, action: AddOeeRecord) {
+    return this.machineService.addOeeRecord(action.machine, action.payload).pipe(
+      tap({
+        next: (record: any) => {
+          ctx.dispatch(new GetMachines())
+        },
+        error: (error) => console.error('Error adding OEE record', error)
       })
     );
   }

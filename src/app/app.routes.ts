@@ -1,28 +1,12 @@
 import { Routes } from '@angular/router';
 import { loggedInGuard, loggedOutGuard } from './auth/logged-in.guard';
+import { LayoutComponent } from './layout/layout.component';
 
 export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
     redirectTo: 'dashboard',
-  },
-  {
-    path: '',
-    loadComponent: () => import('./layout/layout.component').then(m => m.LayoutComponent),
-    children: [
-      {
-        path: 'dashboard',
-        pathMatch: 'full',
-        loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent)
-      },
-      {
-        path: 'machines',
-        pathMatch: 'full',
-        loadComponent: () => import('./machines/machines.component').then(m => m.MachinesComponent)
-      }
-    ],
-    canActivate: [loggedInGuard]
   },
   {
     path: '',
@@ -37,5 +21,22 @@ export const routes: Routes = [
       }
     ],
     canActivate: [loggedOutGuard]
-  }
+  },
+  {
+    path: '',
+    component: LayoutComponent,
+    children: [
+      {
+        path: 'dashboard',
+        pathMatch: 'full',
+        loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent)
+      },
+      {
+        path: 'machines',
+        pathMatch: 'full',
+        loadComponent: () => import('./machines/machines.component').then(m => m.MachinesComponent)
+      }
+    ],
+    canActivate: [loggedInGuard],
+  },
 ];

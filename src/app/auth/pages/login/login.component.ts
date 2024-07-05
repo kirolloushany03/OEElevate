@@ -1,5 +1,5 @@
 import { DxFormComponent, DxFormModule } from 'devextreme-angular';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { Login } from '../../state/auth.actions';
 import { Router, RouterModule } from '@angular/router';
