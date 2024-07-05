@@ -1,0 +1,46 @@
+.dx-datagrid {
+  & > .dx-datagrid-headers,
+  & > .dx-datagrid-rowsview,
+  & > .dx-datagrid-total-footer {
+    background-color: var(--default-bg);
+  }
+
+  & > .dx-datagrid-headers {
+    border-radius: 20px 20px 0 0;
+  }
+
+  & > .dx-datagrid-rowsview {
+    border-radius: 0 0 20px 20px;
+  }
+
+  & .dx-row {
+    .dx-command-expand.dx-datagrid-group-space {
+      padding-top: 0;
+    }
+
+    > td {
+      vertical-align: middle;
+      padding: 13px 25px;
+    }
+
+    .dx-command-expand.dx-datagrid-group-space,
+    .td {
+      vertical-align: middle;
+    }
+  }
+  .dx-datagrid-content .dx-datagrid-table {
+    .dx-row > td {
+      vertical-align: middle;
+
+      &.dx-datagrid-group-space {
+        vertical-align: middle;
+      }
+    }
+  }
+}
+
+.dx-datagrid-rowsview
+  .dx-master-detail-row:not(.dx-datagrid-edit-form)
+  .dx-master-detail-cell {
+  background-color: transparent;
+}
