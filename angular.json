@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/oee-fusion-frontend",
+            "outputPath": "docs",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "baseHref": "/oee-fusion",
@@ -55,8 +55,7 @@
                   "maximumError": "20kb"
                 }
               ],
-              "outputHashing": "all",
-              "outputPath": "docs"
+              "outputHashing": "all"
             },
             "development": {
               "optimization": false,
