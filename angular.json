@@ -23,6 +23,7 @@
             "outputPath": "dist/oee-fusion-frontend",
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "baseHref": "/oee-fusion",
             "polyfills": [
               "zone.js"
             ],
