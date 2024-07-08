@@ -59,6 +59,10 @@ def login():
 
     user = User.query.filter_by(email=email).first()
 
+    #corrected if there is the user is invalid
+    if not user:
+        return jsonify({"message": "Invalid credentials"}), 400
+
     if email and pbkdf2_sha256.verify(password, user.password):
         access_token = create_access_token(identity=user.id)
         return {"access_token": access_token}
