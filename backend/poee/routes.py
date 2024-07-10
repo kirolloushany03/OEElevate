@@ -5,7 +5,6 @@ from flask import jsonify, request
 from passlib.hash import pbkdf2_sha256
 from flask_jwt_extended import create_access_token, jwt_required,get_jwt_identity
 from sqlalchemy import func
-from sqlalchemy.orm import aliased
 from datetime import datetime
 
 
