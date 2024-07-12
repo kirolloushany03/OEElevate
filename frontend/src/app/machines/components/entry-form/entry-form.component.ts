@@ -132,13 +132,19 @@ export class EntryFormComponent {
     return Object.entries(dict)
   }
 
+  dateWithoutTimezone(date: Date) {
+    const timezone = date.getTimezoneOffset() * 60 * 1000
+    const withoutTimezone = new Date(date.getTime() - timezone);
+    return withoutTimezone
+  }
+
   addOeeRecord() {
     if (this.machine === null) return;
 
     this.submitEmitter.emit(this.entryForm);
     this.store.dispatch(new AddOeeRecord(this.machine, {
       ...this.entryForm.value,
-      date: new Date(this.entryForm.value.date).toISOString()
+      date: this.dateWithoutTimezone(new Date(this.entryForm.value.date)).toISOString()
     })).subscribe(() => {
       this.close();
       this.closeEmitter.emit();

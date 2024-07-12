@@ -1,7 +1,7 @@
 import { OeeRecord } from "./oee-record";
 
 export interface Machine {
-  id: string;
+  id: number;
   name: string;
   created_at: string;
 }
@@ -17,5 +17,5 @@ export interface MachineSummary extends Machine {
   average_quality: number;
   average_oee: number;
 
-  latest_entries: OeeRecord[];
+  entries: OeeRecord[];
 }

@@ -22,8 +22,12 @@ export class MachineService {
     return this.crud.read('/machines/summary');
   }
 
+  getMachineById(id:number) {
+    return this.crud.read(`/machines/${id}`)
+  }
+
   addOeeRecord(machine: Machine, data: OeeRecordForm) {
-    console.log('machine', machine, 'data', data)
+    data.date = data.date.split('.')[0]
     return this.crud.create(`/machine/${machine.id}/oeeRecords`, data);
   }
 }

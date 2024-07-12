@@ -100,15 +100,10 @@ export class AuthState {
 
     @Action(Logout)
     logout({ patchState, getState }: StateContext<AuthStateModel>) {
-        console.log('Logging out')
-
         patchState({
             token: null,
             loggedIn: false,
         });
-
-        console.log('Logged out, redirecting to login page', getState())
-
         localStorage.removeItem('token');
     }
 }

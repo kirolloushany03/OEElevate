@@ -1,19 +1,23 @@
 import { Injectable } from '@angular/core';
 import { State, Action, Selector, StateContext } from '@ngxs/store';
-import { AddMachine, AddOeeRecord, GetMachines } from './machines.actions';
+import { AddMachine, AddOeeRecord, GetMachineById, GetMachines } from './machines.actions';
 import { Machine, MachineSummary } from '../../../models/machine';
 import { map, tap, timer } from 'rxjs';
 import { MachineService } from '../../service/machine.service';
 import { log } from '../../../utlils/operators';
+import { HttpStatusCode } from '@angular/common/http';
+import { MaybeErorr, RequestError } from '../../../models/request-error';
 
 export interface MachinesStateModel {
   machines: MachineSummary[];
+  machineById: MaybeErorr<MachineSummary>;
 }
 
 @State<MachinesStateModel>({
   name: 'machines',
   defaults: {
-    machines: []
+    machines: [],
+    machineById: null
   }
 })
 @Injectable()
@@ -23,6 +27,11 @@ export class MachinesState {
   @Selector()
   static machines(state: MachinesStateModel) {
     return state.machines;
+  }
+
+  @Selector()
+  static machineById(state: MachinesStateModel) {
+    return state.machineById
   }
 
   @Action(AddMachine)
@@ -47,6 +56,31 @@ export class MachinesState {
         error: (error) => console.error('Error getting machines', error)
       })
     );
+  }
+
+  @Action(GetMachineById)
+  getMachineById(ctx: StateContext<MachinesStateModel>, action: GetMachineById) {
+    return this.machineService.getMachineById(action.id).pipe(
+      tap({
+        next: (machineById: any) => {
+          ctx.patchState({ machineById });
+        },
+        error: (error) => {
+          if (error.status === HttpStatusCode.NotFound) {
+            ctx.patchState({
+              machineById: {
+                error: {
+                  status: error.status,
+                  message: error.message?.length
+                    ? error.message
+                    : `Machine with id ${action.id} not found`
+                }
+              }
+            })
+          }
+        }
+      })
+    )
   }
 
   @Action(AddOeeRecord)

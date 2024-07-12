@@ -33,8 +33,16 @@ export const routes: Routes = [
       },
       {
         path: 'machines',
-        pathMatch: 'full',
-        loadComponent: () => import('./machines/machines.component').then(m => m.MachinesComponent)
+        children: [
+          {
+            path:'details/:id',
+            loadComponent: () => import('./machines/pages/machine-details/machine-details.component').then(m => m.MachineDetailsComponent)
+          },
+          {
+            path: '',
+            loadComponent: () => import('./machines/machines.component').then(m => m.MachinesComponent),
+          }
+        ]
       }
     ],
     canActivate: [loggedInGuard],
