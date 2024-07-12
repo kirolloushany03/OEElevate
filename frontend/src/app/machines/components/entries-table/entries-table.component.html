@@ -1,0 +1,10 @@
+<dx-data-grid [dataSource]="entries">
+  <dxi-column dataField="created_at" caption="Date" dataType="date"></dxi-column>
+
+  <dxi-column dataField="good_units" caption="Good units"></dxi-column>
+  <dxi-column dataField="availability" format="percent"></dxi-column>
+  <dxi-column dataField="performance" format="percent"></dxi-column>
+  <dxi-column dataField="quality" format="percent"></dxi-column>
+
+  <dxi-column dataField="oee" caption="OEE" format="percent"></dxi-column>
+</dx-data-grid>

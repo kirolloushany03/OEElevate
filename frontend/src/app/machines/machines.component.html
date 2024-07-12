@@ -1,0 +1,67 @@
+<div class="h-full flex flex-col">
+  <h1 class="mb-5">Machines</h1>
+
+  <div class="flex-1">
+    <dx-data-grid class="h-full" [dataSource]="machines$ | async" [showColumnLines]="false" [showRowLines]="false">
+      <dxi-column dataField="id" caption="ID" alignment="start" width="auto"></dxi-column>
+      <dxi-column dataField="machine_name" caption="Name"></dxi-column>
+      <dxi-column dataField="total_good_units" caption="Good Units"></dxi-column>
+      <dxi-column dataField="average_availability" caption="Average availability"></dxi-column>
+      <dxi-column dataField="average_performance" caption="Average performance"></dxi-column>
+      <dxi-column dataField="average_quality" caption="Average quality"></dxi-column>
+      <dxi-column dataField="average_oee" caption="Average OEE"></dxi-column>
+      <dxi-column type="buttons" width="auto">
+        <dxi-button hint="Add Record" template="addEntryTemplate">
+          <button type="button" title="Add Record" *dxTemplate="let machine of 'addEntryTemplate'" class="text-primary"
+                  (click)="openEntryForm(machine.data)">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </dxi-button>
+        <dxi-button hint="View" template="viewTemplate">
+          <a type="button" title="Add Record" *dxTemplate="let machine of 'viewTemplate'" class="text-fg ms-3" [routerLink]="['details/', machine?.data?.id]">
+            <i class="fa-solid fa-eye"></i>
+          </a>
+        </dxi-button>
+
+        <!-- <dxi-button hint="Delete" icon="trash" cssClass="text-danger"></dxi-button> -->
+      </dxi-column>
+
+      <dxo-master-detail [enabled]="true" template="LatestEntriesTemplate">
+      </dxo-master-detail>
+      <oee-entries-table *dxTemplate="let machine of 'LatestEntriesTemplate'"
+                         [entries]="machine?.data?.latest_entries ?? null"></oee-entries-table>
+
+      <dxo-paging [enabled]="false"></dxo-paging>
+      <dxo-load-panel [enabled]="false" [showIndicator]="true"></dxo-load-panel>
+    </dx-data-grid>
+  </div>
+</div>
+
+<button title="Add Machine"
+        class="fixed bottom-6 right-10 w-14 h-auto aspect-square rounded-full bg-primary hover:rotate-180 hover:bg-primary-dark transition-all"
+        (click)="openMachineForm()">
+  <i class="fa-solid fa-plus text-3xl"></i>
+</button>
+
+
+<oee-sliding-overlay #machineFormOverlay>
+  <h1>Add machine</h1>
+
+  <form (submit)="addMachine($event)">
+    <dx-form [formData]="machineForm" #machineFormComponent>
+      <dxi-item dataField="machine_name" caption="Name" [editorOptions]="{ placeholder: 'Name' }">
+        <dxo-label text="Name"></dxo-label>
+        <dxi-validation-rule type="required" message="Name is required"></dxi-validation-rule>
+        <dxi-validation-rule type="stringLength" [min]="3" [max]="30"
+                             message="Name must be between 3 and 30 characters"></dxi-validation-rule>
+      </dxi-item>
+
+      <dxi-item itemType="button">
+        <dxo-button-options [useSubmitBehavior]="true" text="Add machine"></dxo-button-options>
+      </dxi-item>
+    </dx-form>
+  </form>
+</oee-sliding-overlay>
+
+
+<oee-entry-form #entryFormComponent></oee-entry-form>

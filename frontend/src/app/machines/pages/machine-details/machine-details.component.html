@@ -1,0 +1,45 @@
+<ng-container *ngIf="(machine$ | async) as machine">
+  <div *ngIf="machine.error as error; else machineTemplate">
+    <h1>Error - {{error.status}}</h1>
+    <h2>{{error.message}}</h2>
+  </div>
+
+  <ng-template #machineTemplate>
+    <div class="flex flex-wrap items-center">
+      <div>
+        <h1>{{machine.name}} - Details</h1>
+        <p>OEE: {{machine.average_oee | percent:'1.1-1'}}</p>
+      </div>
+
+      <button class="btn ms-auto bg-primary text-fg-primary" (click)="machineDetails && entryForm.open(machineDetails)">
+        Add Entry +
+      </button>
+    </div>
+
+    <dx-chart class="my-5" [dataSource]="(entries$ | async) ?? []">
+      <dxo-argument-axis>
+        <dxo-label format="shortDate"></dxo-label>
+      </dxo-argument-axis>
+
+      <dxi-value-axis [visualRange]="{
+        startValue: 0,
+        endValue: 1
+      }" [maxValueMargin]="0.001">
+        <dxo-label format="percent"></dxo-label>
+      </dxi-value-axis>
+
+      <dxo-common-series-settings type="spline" argumentField="created_at"
+                                  argumentType="date"></dxo-common-series-settings>
+
+      <dxi-series valueField="oee" name="oee"> </dxi-series>
+      <dxi-series valueField="performance" name="performance"> </dxi-series>
+      <dxi-series valueField="quality" name="quality"> </dxi-series>
+      <dxi-series valueField="availability" name="availability"> </dxi-series>
+    </dx-chart>
+
+    <oee-entries-table [entries]="(entries$ | async) ?? []"></oee-entries-table>
+    <oee-entry-form #entryForm (submit)="getMachineById(machine?.id)"></oee-entry-form>
+  </ng-template>
+</ng-container>
+
+
