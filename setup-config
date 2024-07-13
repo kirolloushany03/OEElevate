@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # Create the nginx configuration file
-ln -s ./frontend/nginx.conf /etc/nginx/nginx.conf
+cp ./frontend/nginx.conf /etc/nginx/nginx.conf
 
 # Copy from dist to the nginx directory
 mkdir -p /usr/share/nginx/html/oee-fusion/app
-ln -r ./frontend/dist/browser/* /usr/share/nginx/html/oee-fusion/app/
+cp ./frontend/dist/browser/* /usr/share/nginx/html/oee-fusion/app/
