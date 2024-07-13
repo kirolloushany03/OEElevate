@@ -9,9 +9,9 @@ from datetime import datetime
 
 
 # -------------------------------------------(heartbeat)--------------------------------------------------
-@app.route("/api", methods=['GET'])
-def heartbeat():
-    return "Server is up and running", 200
+# @app.route("/api", methods=['GET'])
+# def heartbeat():
+#     return "Server is up and running", 200
 
 # -------------------------------------------(register)--------------------------------------------------
 @app.route("/api/auth/register", methods=['POST'])
@@ -81,13 +81,16 @@ def login():
 def refresh():
     current_user_id = get_jwt_identity()
     new_token = create_access_token(identity=current_user_id, fresh=False)
-    return jsonify(access_token=new_token)
+    new_refresh_token =  create_access_token(identity=current_user_id, fresh=False)
+    
+    return jsonify(access_token=new_token, refresh_acesstoken=new_refresh_token)
+
 
 
 # -------------------------------------------(get user info)--------------------------------------------------
 
 @app.route('/api/user', methods=['GET'])
-@jwt_required(refresh=True)
+@jwt_required()
 def get_user_info():
     user_id = get_jwt_identity()
     user = User.query.get(user_id)
@@ -108,7 +111,7 @@ def get_user_info():
 # -------------------------------------------(create machine)--------------------------------------------------
 
 @app.route('/api/machines', methods=['POST'])
-@jwt_required()
+@jwt_required(refresh=True)
 def create_machine():
     data = request.get_json()
 
