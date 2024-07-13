@@ -2,7 +2,8 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "pnpm"
+    "packageManager": "pnpm",
+    "analytics": false
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -20,12 +21,22 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/oee-fusion-frontend",
+            "outputPath": "dist",
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "deleteOutputPath": true,
             "polyfills": [
               "zone.js"
             ],
+            "allowedCommonJsDependencies": [
+              "devextreme",
+              "devextreme-angular",
+              "devexpress-gantt",
+              "devexpress-quill",
+              "devexpress-diagram",
+              "jszip"
+            ],
+            "progress": false,
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
