@@ -3,8 +3,9 @@ from poee.models import OEERecord, Machine, User
 from poee.claculations import Calculations
 from flask import jsonify, request
 from passlib.hash import pbkdf2_sha256
-from flask_jwt_extended import create_access_token, jwt_required,get_jwt_identity
+from flask_jwt_extended import create_access_token, jwt_required,get_jwt_identity, create_refresh_token
 from sqlalchemy import func
+from sqlalchemy.orm import aliased
 from datetime import datetime
 
 
@@ -63,15 +64,26 @@ def login():
         return jsonify({"message": "Invalid credentials"}), 400
 
     if email and pbkdf2_sha256.verify(password, user.password):
-        access_token = create_access_token(identity=user.id)
-        return {"access_token": access_token}
+        access_token = create_access_token(identity=user.id, fresh=True)
+        refresh_token = create_refresh_token(identity=user.id)
+        return {"access_token": access_token, "refresh_token": refresh_token}
 
     return jsonify({"message":"Inavalid credentials"}), 400
+
+# -------------------------------------------(refresh token)--------------------------------------------------
+
+@app.route("/api/auth/refresh", methods=["POST"])
+@jwt_required(refresh=True)
+def refresh():
+    current_user_id = get_jwt_identity()
+    new_token = create_access_token(identity=current_user_id, fresh=False)
+    return jsonify(access_token=new_token)
+
 
 # -------------------------------------------(get user info)--------------------------------------------------
 
 @app.route('/api/user', methods=['GET'])
-@jwt_required()
+@jwt_required(refresh=True)
 def get_user_info():
     user_id = get_jwt_identity()
     user = User.query.get(user_id)
@@ -92,7 +104,7 @@ def get_user_info():
 # -------------------------------------------(create machine)--------------------------------------------------
 
 @app.route('/api/machines', methods=['POST'])
-@jwt_required()
+@jwt_required(refresh=True)
 def create_machine():
     data = request.get_json()
 
@@ -206,59 +218,6 @@ def get_machine_by_id(id):
     }
 
     return jsonify(machine_data), 200
-
-# @app.route('/api/machines/summary', methods=['GET'])
-# @jwt_required()
-# def get_machine_summary():
-    user_id = get_jwt_identity()
-    machines = Machine.query.filter_by(user_id=user_id).order_by(Machine.created_at.desc()).limit(5).all()
-
-    if not machines:
-        return jsonify({"message": "No machines found for this user"}), 200
-
-    machine_summaries = []
-
-    for machine in machines:
-        latest_entries = OEERecord.query.filter_by(machine_id=machine.id) \
-                                        .order_by(OEERecord.created_at.desc()) \
-                                        .limit(5).all()
-
-        total_good_units = db.session.query(func.sum(OEERecord.good_units)) \
-                                    .filter_by(machine_id=machine.id).scalar() or 0
-
-        average_availability = db.session.query(func.avg(OEERecord.availability)) \
-                                        .filter_by(machine_id=machine.id).scalar() or 0
-
-        average_performance = db.session.query(func.avg(OEERecord.performance)) \
-                                        .filter_by(machine_id=machine.id).scalar() or 0
-
-        average_quality = db.session.query(func.avg(OEERecord.quality)) \
-                                    .filter_by(machine_id=machine.id).scalar() or 0
-
-        average_oee = db.session.query(func.avg(OEERecord.oee)) \
-                                .filter_by(machine_id=machine.id).scalar() or 0
-
-        machine_summaries.append({
-            'id': machine.id,
-            'machine_name': machine.machine_name,
-            'latest_entries': [
-                {
-                    'created_at': entry.created_at.isoformat(),
-                    'good_units': entry.good_units,
-                    'availability': entry.availability,
-                    'performance': entry.performance,
-                    'quality': entry.quality,
-                    'oee': entry.oee
-                } for entry in latest_entries
-            ],
-            'total_good_units': total_good_units,
-            'average_availability': round(average_availability, 2),
-            'average_performance': round(average_performance, 2),
-            'average_quality': round(average_quality, 2),
-            'average_oee': round(average_oee, 2)
-        })
-
-    return jsonify(machine_summaries), 200
 
 
 @app.route('/api/machines/summary', methods=['GET'])
@@ -399,7 +358,7 @@ def add_oee_record(id):
     return response, 201
 
 @app.route('/api/machine/<int:id>/oeeRecords', methods=['GET'])
-@jwt_required()
+@jwt_required(refresh=True)
 def get_oee_records(id):
     machine = Machine.query.get(id)
     if not machine:
