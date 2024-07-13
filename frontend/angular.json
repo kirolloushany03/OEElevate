@@ -91,7 +91,7 @@
               "buildTarget": "oee-fusion-frontend:build:production"
             },
             "development": {
-              "buildTarget": "oee-fusion-frontend:build:development",
+              "buildTarget": "oee-fusion-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"

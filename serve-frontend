@@ -1,17 +1,15 @@
 #!/usr/bin/env bash
 
 # Check if nginx is installed
-if ! command nginx -v &> /dev/null; then
+if ! command nginx -v &>/dev/null; then
   # Install nginx
-  sudo apt-get update
-  sudo apt-get install nginx -y
+  apt-get update
+  apt-get install nginx -y
+else
+  echo "Nginx is already installed"
 fi
 
-# Create the nginx configuration file
-cp ./frontend/nginx.conf /etc/nginx/nginx.conf
+sudo ./setup-config
 
 # Start the nginx server
 nginx -g 'daemon off;'
-
-# Keep the container running
-tail -f /dev/null
