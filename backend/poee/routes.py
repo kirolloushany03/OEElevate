@@ -108,7 +108,7 @@ def get_user_info():
 # -------------------------------------------(create machine)--------------------------------------------------
 
 @app.route('/api/machines', methods=['POST'])
-@jwt_required(refresh=True)
+@jwt_required()
 def create_machine():
     data = request.get_json()
 
