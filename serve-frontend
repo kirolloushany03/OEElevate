@@ -10,7 +10,7 @@ if ! command nginx -v &>/dev/null; then
 http://nginx.org/packages/ubuntu $(lsb_release -cs) nginx" |
     sudo tee /etc/apt/sources.list.d/nginx.list
   sudo apt update
-  sudo apt install nginx
+  sudo apt install nginx -y
 else
   echo "Nginx is already installed"
 fi

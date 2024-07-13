@@ -29,8 +29,6 @@
             "polyfills": [
               "zone.js"
             ],
-            "sourceMap": true,
-            "namedChunks": true,
             "allowedCommonJsDependencies": [
               "devextreme",
               "devextreme-angular",
@@ -68,7 +66,15 @@
                   "maximumError": "20kb"
                 }
               ],
-              "outputHashing": "all"
+              "sourceMap": true,
+              "namedChunks": true,
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.production.ts"
+                }
+              ]
             },
             "development": {
               "optimization": false,
@@ -77,7 +83,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.development.ts"
+                  "with": "src/environments/environment.production.ts"
                 }
               ]
             }
