@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/auth/state/auth.actions.ts"],
+  "sourcesContent": ["import { LoginCredentials, SignUpCredentials } from \"../../models/auth\";\n\nexport class Login {\n  static readonly type = '[Auth] Login';\n  constructor(public payload: LoginCredentials) {}\n}\n\nexport class GetUserInfo {\n  static readonly type = '[Auth] GetUserInfo';\n}\n\nexport class SignUp {\n  static readonly type = '[Auth] SignUp';\n  constructor(public payload: SignUpCredentials) {}\n}\n\nexport class Logout {\n  static readonly type = '[Auth] Logout';\n}\n"],
+  "mappings": "AAEA,IAAaA,GAAK,IAAA,CAAZ,IAAOA,EAAP,MAAOA,CAAK,CAEhBC,YAAmBC,EAAyB,CAAzB,KAAAA,QAAAA,CAA4B,GAD/BC,EAAAC,KAAO,eADnB,IAAOJ,EAAPG,SAAOH,CAAK,GAAA,EAKLK,GAAW,IAAA,CAAlB,IAAOA,EAAP,MAAOA,CAAW,GACNC,EAAAF,KAAO,qBADnB,IAAOC,EAAPC,SAAOD,CAAW,GAAA,EAIXE,GAAM,IAAA,CAAb,IAAOA,EAAP,MAAOA,CAAM,CAEjBN,YAAmBC,EAA0B,CAA1B,KAAAA,QAAAA,CAA6B,GADhCM,EAAAJ,KAAO,gBADnB,IAAOG,EAAPC,SAAOD,CAAM,GAAA,EAKNE,GAAM,IAAA,CAAb,IAAOA,EAAP,MAAOA,CAAM,GACDC,EAAAN,KAAO,gBADnB,IAAOK,EAAPC,SAAOD,CAAM,GAAA",
+  "names": ["Login", "constructor", "payload", "_Login", "type", "GetUserInfo", "_GetUserInfo", "SignUp", "_SignUp", "Logout", "_Logout"]
+}

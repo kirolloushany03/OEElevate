@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Create the nginx configuration file
+cp ./frontend/nginx.conf /etc/nginx/nginx.conf
+
+# Start the nginx server
+nginx -g 'daemon off;'
+
+# Keep the container running
+tail -f /dev/null

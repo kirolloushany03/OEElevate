@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/layout/layout.component.scss"],
+  "sourcesContent": [".layout-grid {\n  display: grid;\n  grid-template-columns: auto 1fr;\n  grid-template-rows: auto 1fr;\n  grid-template-areas:\n    \"header header\"\n    \"sidebar main\";\n  height: 100vh;\n  width: 100vw;\n}\n\nmain {\n\n}\n"],
+  "mappings": "AAAA,CAAA,YACE,QAAA,KACA,sBAAA,KAAA,IACA,mBAAA,KAAA,IACA,oBACE,gBAAA,eAEF,OAAA,MACA,MAAA",
+  "names": []
+}

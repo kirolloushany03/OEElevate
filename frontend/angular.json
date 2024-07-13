@@ -21,6 +21,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "baseHref": "/oee-fusion/app/",
             "outputPath": "dist",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -28,6 +29,7 @@
             "polyfills": [
               "zone.js"
             ],
+            "sourceMap": true,
             "namedChunks": true,
             "allowedCommonJsDependencies": [
               "devextreme",
