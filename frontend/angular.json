@@ -28,6 +28,7 @@
             "polyfills": [
               "zone.js"
             ],
+            "namedChunks": true,
             "allowedCommonJsDependencies": [
               "devextreme",
               "devextreme-angular",
@@ -85,16 +86,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "oee-fusion-frontend:build:production",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ]
+              "buildTarget": "oee-fusion-frontend:build:production"
             },
             "development": {
-              "buildTarget": "oee-fusion-frontend:build:development"
+              "buildTarget": "oee-fusion-frontend:build:development",
             }
           },
           "defaultConfiguration": "development"
