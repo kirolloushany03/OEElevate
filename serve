@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+#TODO: replace with serving the production app
+./backend/oee/bin/python ./backend/run.py &
+
+sudo ./serve-frontend

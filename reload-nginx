@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-sudo ./setup-config
+cd frontend; ng build --progress; cd ..
 
-nginx -s reload
+sudo nginx -s reload

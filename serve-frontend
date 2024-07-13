@@ -9,7 +9,7 @@ else
   echo "Nginx is already installed"
 fi
 
-sudo ./setup-config
+source ./setup-config
 
 # Start the nginx server
 nginx -g 'daemon off;'

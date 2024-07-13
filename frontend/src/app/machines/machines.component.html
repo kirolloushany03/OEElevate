@@ -6,10 +6,10 @@
       <dxi-column dataField="id" caption="ID" alignment="start" width="auto"></dxi-column>
       <dxi-column dataField="machine_name" caption="Name"></dxi-column>
       <dxi-column dataField="total_good_units" caption="Good Units"></dxi-column>
-      <dxi-column dataField="average_availability" caption="Average availability"></dxi-column>
-      <dxi-column dataField="average_performance" caption="Average performance"></dxi-column>
-      <dxi-column dataField="average_quality" caption="Average quality"></dxi-column>
-      <dxi-column dataField="average_oee" caption="Average OEE"></dxi-column>
+      <dxi-column dataField="average_availability" caption="Average availability" format="percent"></dxi-column>
+      <dxi-column dataField="average_performance" caption="Average performance" format="percent"></dxi-column>
+      <dxi-column dataField="average_quality" caption="Average quality" format="percent"></dxi-column>
+      <dxi-column dataField="average_oee" caption="Average OEE" format="percent"></dxi-column>
       <dxi-column type="buttons" width="auto">
         <dxi-button hint="Add Record" template="addEntryTemplate">
           <button type="button" title="Add Record" *dxTemplate="let machine of 'addEntryTemplate'" class="text-primary"
