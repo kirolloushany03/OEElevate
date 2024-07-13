@@ -1,0 +1,231 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+header {
+    background-color: #1f1f1f;
+    padding: 1em 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    float: left;
+    font-size: 1.5em;
+}
+
+nav ul {
+    list-style: none;
+    float: right;
+}
+
+nav ul li {
+    display: inline;
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: #e0e0e0;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #6200ea;
+}
+
+.hero {
+    text-align: center;
+    padding: 6em 0 4em;
+    margin-top: 60px;
+    min-height: 60vh;
+    background-image: url('/images/cover.png');
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+.hero h1 {
+    font-size: 3em;
+    animation: fadeIn 2s ease-in-out;
+    color: black;
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin: 1em 0;
+    animation: fadeIn 2s ease-in-out 0.5s;
+    color: black;
+}
+
+.cta-buttons .btn {
+    background-color: #6200ea;
+    color: white;
+    padding: 1em 2em;
+    text-decoration: none;
+    margin: 0 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.cta-buttons .btn:hover {
+    background-color: #3700b3;
+}
+
+.features {
+    padding: 4em 0;
+    text-align: center;
+    animation: fadeIn 2s ease-in-out;
+}
+
+.features h2 {
+    font-size: 2.5em;
+    margin-bottom: 1em;
+}
+
+.features .feature {
+    margin: 2em 0;
+    opacity: 0;
+    animation: fadeIn 2s ease-in-out 1s forwards;
+}
+
+.features .feature img {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+.features .feature h3 {
+    font-size: 1.5em;
+    margin-top: 0.5em;
+}
+
+.features .feature p {
+    font-size: 1em;
+    margin-top: 0.5em;
+}
+
+.about {
+    padding: 4em 0;
+    text-align: center;
+    animation: fadeIn 2s ease-in-out;
+}
+
+.about h2 {
+    font-size: 2.5em;
+    margin-bottom: 1em;
+}
+
+.about p {
+    font-size: 1.2em;
+    margin-bottom: 1.5em;
+}
+
+.team-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2em;
+}
+
+.team-member {
+    text-align: center;
+    margin: 1em;
+}
+
+.team-member img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+.team-member h3 {
+    font-size: 1.5em;
+    margin-top: 0.5em;
+}
+
+.team-member p {
+    font-size: 1em;
+    margin-top: 0.5em;
+}
+
+.social-links {
+    margin-top: 0.5em;
+}
+
+.social-links a {
+    margin: 0 5px;
+}
+
+.social-links img {
+    width: 24px;
+    height: 24px;
+}
+
+.github-button {
+    display: inline-block;
+    padding: 1em 2em;
+    margin-top: 1.5em;
+    background-color: #6200ea;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.github-button:hover {
+    background-color: #3700b3;
+}
+
+footer {
+    background-color: #1f1f1f;
+    padding: 2em 0;
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+}
+
+footer nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 1em;
+}
+
+footer nav ul li {
+    display: inline;
+    margin-left: 20px;
+}
+
+footer nav ul li a {
+    color: #e0e0e0;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+footer nav ul li a:hover {
+    color: #6200ea;
+}
+
+footer .privacy {
+    color: #e0e0e0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

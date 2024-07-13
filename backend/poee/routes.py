@@ -5,9 +5,13 @@ from flask import jsonify, request
 from passlib.hash import pbkdf2_sha256
 from flask_jwt_extended import create_access_token, jwt_required,get_jwt_identity, create_refresh_token
 from sqlalchemy import func
-from sqlalchemy.orm import aliased
 from datetime import datetime
 
+
+# -------------------------------------------(heartbeat)--------------------------------------------------
+@app.route("/api", methods=['GET'])
+def heartbeat():
+    return "Server is up and running", 200
 
 # -------------------------------------------(register)--------------------------------------------------
 @app.route("/api/auth/register", methods=['POST'])
