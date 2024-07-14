@@ -83,7 +83,7 @@ def refresh():
     new_token = create_access_token(identity=current_user_id, fresh=False)
     new_refresh_token =  create_access_token(identity=current_user_id, fresh=False)
 
-    return jsonify(access_token=new_token, refresh_acesstoken=new_refresh_token)
+    return jsonify(access_token=new_token, refresh2_acesstoken=new_refresh_token)
 
 
 
