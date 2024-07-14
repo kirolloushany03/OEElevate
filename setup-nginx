@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
+sudo rm -r /etc/nginx/nginx.conf
+sudo rm -rf /usr/share/nginx/html/oee-fusion/app
+
 # Create the nginx configuration file
-sudo cp ./nginx.conf /etc/nginx/nginx.conf
+sudo ln -s ./nginx.conf /etc/nginx/nginx.conf
+sudo ln -s ./nginx.conf /etc/nginx/sites-enabled/
 
 # Copy from dist to the nginx directory
 sudo mkdir -p /usr/share/nginx/html/oee-fusion/app
