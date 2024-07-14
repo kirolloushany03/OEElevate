@@ -1,3 +1,8 @@
 #!/usr/bin/env bash
 
-sudo kill "$(cat /tmp/.oee-gunicorn-pid)"
+if [ -f "/tmp/.oee-gunicorn-pid" ]; then
+  sudo kill "$(cat /tmp/.oee-gunicorn-pid)"
+else
+  echo "Gunicorn server not running"
+fi
+

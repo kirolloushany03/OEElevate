@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
-cd frontend; ng build --progress; cd ..
+source ./setup-nginx
 
-sudo nginx -s reload
+if sudo nginx -s reload; then
+  echo "Nginx server reloaded"
+fi
