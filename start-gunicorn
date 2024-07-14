@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
 cd backend || exit
+source oee/bin/activate
 gunicorn -w 4 -p /tmp/.oee-gunicorn-pid 'run:app' &
+deactivate
 cd .. || return
