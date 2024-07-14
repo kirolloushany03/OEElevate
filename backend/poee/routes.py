@@ -483,7 +483,7 @@ def get_machines_with_lowest_oee():
     # Return the sorted and limited list of machine summaries as JSON
     return jsonify(machine_summaries), 200
 
-
+#------------------------------------
 @app.route('/api/bad-units-rate', methods=['GET'])
 @jwt_required()
 def get_bad_units_rate():
