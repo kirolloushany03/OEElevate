@@ -8,10 +8,10 @@ from sqlalchemy import func
 from datetime import datetime
 
 
-# -------------------------------------------(heartbeat)--------------------------------------------------
-# @app.route("/api", methods=['GET'])
-# def heartbeat():
-#     return "Server is up and running", 200
+# -------------------------------------------(check_running)--------------------------------------------------
+@app.route("/api", methods=['GET'])
+def check_running():
+    return "Server is up and running", 200
 
 # -------------------------------------------(register)--------------------------------------------------
 @app.route("/api/auth/register", methods=['POST'])
@@ -82,7 +82,7 @@ def refresh():
     current_user_id = get_jwt_identity()
     new_token = create_access_token(identity=current_user_id, fresh=False)
     new_refresh_token =  create_access_token(identity=current_user_id, fresh=False)
-    
+
     return jsonify(access_token=new_token, refresh_acesstoken=new_refresh_token)
 
 
@@ -365,7 +365,7 @@ def add_oee_record(id):
     return response, 201
 
 @app.route('/api/machine/<int:id>/oeeRecords', methods=['GET'])
-@jwt_required(refresh=True)
+@jwt_required()
 def get_oee_records(id):
     machine = Machine.query.get(id)
     if not machine:
