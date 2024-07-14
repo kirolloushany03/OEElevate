@@ -84,7 +84,7 @@ def refresh():
     new_refresh_token =  create_access_token(identity=current_user_id, fresh=False)
 
     return jsonify(access_token=new_token, refresh2_acesstoken=new_refresh_token)
-#changed
+
 
 
 # -------------------------------------------(get user info)--------------------------------------------------
@@ -111,7 +111,7 @@ def get_user_info():
 # -------------------------------------------(create machine)--------------------------------------------------
 
 @app.route('/api/machines', methods=['POST'])
-@jwt_required(refresh=True)
+@jwt_required()
 def create_machine():
     data = request.get_json()
 
@@ -226,7 +226,7 @@ def get_machine_by_id(id):
 
     return jsonify(machine_data), 200
 
-
+#----------------with subquery-------------------------
 @app.route('/api/machines/summary', methods=['GET'])
 @jwt_required()
 def get_machine_summary():
@@ -303,7 +303,7 @@ def get_machine_summary():
 
     return jsonify(machine_summaries), 200
 
-
+#------------------------------------------------------
 @app.route('/api/machine/<int:id>/oeeRecords', methods=['POST'])
 @jwt_required()
 def add_oee_record(id):
@@ -397,3 +397,112 @@ def get_oee_records(id):
         })
 
     return jsonify(records_list), 200
+
+
+# --------------------dashbord--------------------
+
+@app.route('/api/machines/lowest_oee', methods=['GET'])
+@jwt_required()
+def get_machines_with_lowest_oee():
+    # Get the user ID from the JWT token
+    user_id = get_jwt_identity()
+    
+    # Get the 'count' query parameter from the request, defaulting to 5 if not provided
+    count = request.args.get('count', default=5, type=int)
+    
+    # Query to calculate average OEE for each machine
+    avg_oee_query = db.session.query(
+        OEERecord.machine_id,
+        func.avg(OEERecord.oee).label('average_oee')
+    ).join(Machine, OEERecord.machine_id == Machine.id) \
+     .filter(Machine.user_id == user_id) \
+     .group_by(OEERecord.machine_id) \
+     .order_by(func.avg(OEERecord.oee)) \
+     .limit(count) \
+     .all()
+
+    # Extract the limited machine IDs
+    limited_machine_ids = [record.machine_id for record in avg_oee_query]
+
+    if not limited_machine_ids:
+        return jsonify([]), 200
+
+    # Query to calculate total good units and other averages for the limited machines
+    stats_query = db.session.query(
+        OEERecord.machine_id,
+        Machine.machine_name,
+        func.sum(OEERecord.good_units).label('total_good_units'),
+        func.avg(OEERecord.availability).label('average_availability'),
+        func.avg(OEERecord.performance).label('average_performance'),
+        func.avg(OEERecord.quality).label('average_quality'),
+        func.avg(OEERecord.oee).label('average_oee')
+    ).join(Machine, OEERecord.machine_id == Machine.id) \
+    .filter(OEERecord.machine_id.in_(limited_machine_ids)) \
+    .group_by(OEERecord.machine_id, Machine.machine_name) \
+    .all()
+
+    # Convert the stats query result to a dictionary for easy access
+    stats_dict = {stat.machine_id: stat for stat in stats_query}
+
+    machine_summaries = []
+
+    # Loop through each machine and prepare its summary
+    for machine_id in limited_machine_ids:
+        stat = stats_dict.get(machine_id)
+
+        # If stats are available, extract them; otherwise, use defaults
+        if stat:
+            machine_name = stat.machine_name
+            total_good_units = stat.total_good_units
+            average_availability = stat.average_availability
+            average_performance = stat.average_performance
+            average_quality = stat.average_quality
+            average_oee = stat.average_oee
+        else:
+            machine_name = ''
+            total_good_units = 0
+            average_availability = 0
+            average_performance = 0
+            average_quality = 0
+            average_oee = 0
+
+        # Append the machine summary to the list
+        machine_summaries.append({
+            'id': machine_id,
+            'name': machine_name,
+            'good_units': total_good_units,
+            'average_availability': round(average_availability, 2),
+            'average_performance': round(average_performance, 2),
+            'average_quality': round(average_quality, 2),
+            'average_oee': round(average_oee, 2)
+        })
+
+    # Return the sorted and limited list of machine summaries as JSON
+    return jsonify(machine_summaries), 200
+
+
+@app.route('/api/bad-units-rate', methods=['GET'])
+@jwt_required()
+def get_bad_units_rate():
+    # Get the user ID from the JWT token
+    user_id = get_jwt_identity()
+
+    # Query to get the sum of total units and good units for the user's machines
+    totals = db.session.query(
+        func.sum(OEERecord.total_units).label('total_units'),
+        func.sum(OEERecord.good_units).label('good_units')
+    ).join(Machine, OEERecord.machine_id == Machine.id) \
+    .filter(Machine.user_id == user_id) \
+    .first()
+
+    total_units = totals.total_units or 0
+    good_units = totals.good_units or 0
+
+    # Compute bad units rate
+    if total_units > 0:
+        bad_units_rate = (total_units - good_units) / total_units
+    else:
+        bad_units_rate = 0
+
+    # Return the bad units rate as JSON
+    return str(round(bad_units_rate, 4)), 200
