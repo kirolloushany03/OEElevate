@@ -1,14 +1,24 @@
 #!/usr/bin/env bash
 
-sudo rm -r /etc/nginx/nginx.conf
-sudo rm -rf /usr/share/nginx/html/*
+# Check if nginx is installed
+if ! command nginx -v &>/dev/null; then
+  ./install-nginx
+else
+  echo "Nginx is already installed"
+fi
 
-# Create the nginx configuration file
-sudo ln -sr ./nginx.conf /etc/nginx/nginx.conf
+# Check if the nginx configuration file is provided
+if [ -f "./.env.mode" ]; then
+  MODE=$(<./.env.mode)
+  if [[ "$MODE" == "dev" ]]; then
+    echo "using dev mode"
+    ./setup-nginx-dev
+  else
+    echo "using prod mode"
+    ./setup-nginx-prod
+  fi
+else
+    echo "using (default) prod mode"
+  ./setup-nginx-prod
+fi
 
-# Copy from dist to the nginx directory
-sudo mkdir -p /usr/share/nginx/html/oee-fusion/app
-sudo cp -r ./frontend/dist/browser/* /usr/share/nginx/html/oee-fusion/app/
-
-# Copy landing page to the nginx directory
-sudo cp -r -t /usr/share/nginx/html/ ./landing-page/*
