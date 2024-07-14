@@ -163,11 +163,9 @@ def get_all_machines_info():
                 "latest_entry": latest_entry.created_at.isoformat() if latest_entry else None,
                 'created_at':machine.created_at.isoformat()
             })
-    # machine_list.append(machine_data)
-
     return jsonify(machine_list), 200
 
-
+#----------------------imporved the database query as now we do 2 only instad of 5----------
 @app.route('/api/machines/<int:id>', methods=['GET'])
 @jwt_required()
 def get_machine_by_id(id):
@@ -178,18 +176,22 @@ def get_machine_by_id(id):
     if not machine:
         return jsonify({"error": "Machine not found"}), 404
 
-    # Fetch all OEE records for the machine
+    # Fetch OEE records for the machine
     oee_records = OEERecord.query.filter_by(machine_id=machine.id).order_by(OEERecord.created_at.desc()).all()
 
-    # Calculate sum and averages
-    good_units_sum = sum(record.good_units for record in oee_records)
+    # Calculate sum and averages using subqueries
+    good_units_sum = db.session.query(func.sum(OEERecord.good_units)).filter_by(machine_id=machine.id).scalar() or 0
     total_entries = len(oee_records)
 
     if total_entries > 0:
-        average_availability = db.session.query(func.avg(OEERecord.availability)).filter_by(machine_id=machine.id).scalar()
-        average_performance = db.session.query(func.avg(OEERecord.performance)).filter_by(machine_id=machine.id).scalar()
-        average_quality = db.session.query(func.avg(OEERecord.quality)).filter_by(machine_id=machine.id).scalar()
-        average_oee = db.session.query(func.avg(OEERecord.oee)).filter_by(machine_id=machine.id).scalar()
+        averages = db.session.query(
+            func.avg(OEERecord.availability),
+            func.avg(OEERecord.performance),
+            func.avg(OEERecord.quality),
+            func.avg(OEERecord.oee)
+        ).filter_by(machine_id=machine.id).one()
+
+        average_availability, average_performance, average_quality, average_oee = averages
     else:
         average_availability = 0
         average_performance = 0
@@ -217,14 +219,15 @@ def get_machine_by_id(id):
             for record in oee_records
         ],
         "good_units": good_units_sum,
-        "average_availability": average_availability,
-        "average_performance": average_performance,
-        "average_quality": average_quality,
-        "average_oee": average_oee,
+        "average_availability": round(average_availability, 2),
+        "average_performance": round(average_performance, 2),
+        "average_quality": round(average_quality, 2),
+        "average_oee": round(average_oee, 2),
         "created_at": machine.created_at.isoformat()
     }
 
     return jsonify(machine_data), 200
+
 
 #----------------with subquery-------------------------
 @app.route('/api/machines/summary', methods=['GET'])
