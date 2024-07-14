@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# Check if nginx is installed
+if ! command nginx -v &>/dev/null; then
+  ./install-nginx
+else
+  echo "Nginx is already installed"
+fi
+
+sudo ./setup-nginx
+
+# Start the nginx server
+if sudo nginx; then
+  echo "Nginx server started without error"
+else
+  echo "Error starting Nginx server"
+  exit 1
+fi;

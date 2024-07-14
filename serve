@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-#TODO: replace with serving the production app
-./backend/oee/bin/python ./backend/run.py &
+source ./start-gunicorn
 
-sudo ./serve-frontend
+sudo ./start-nginx

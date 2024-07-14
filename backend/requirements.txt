@@ -24,4 +24,5 @@ zipp==3.19.2
 flask-jwt-extended
 passlib
 flask_cors
+gunicorn
 #pip install -r requirements.txt

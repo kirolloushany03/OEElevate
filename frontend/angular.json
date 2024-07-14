@@ -83,7 +83,31 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.production.ts"
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
+            },
+            "localstaging": {
+              "optimization": true,
+              "extractLicenses": true,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.localstaging.ts"
+                }
+              ]
+            },
+            "kk": {
+              "optimization": true,
+              "extractLicenses": true,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.kk.ts"
                 }
               ]
             }

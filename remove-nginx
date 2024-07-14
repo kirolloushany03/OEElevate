@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+sudo systemctl stop nginx
+sudo apt-get purge nginx
+sudo apt-get autoremove
+sudo rm -rf /etc/nginx /var/log/nginx
+sudo systemctl status nginx

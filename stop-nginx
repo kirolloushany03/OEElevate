@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+if sudo nginx -s quit; then
+  echo "Nginx server stopped"
+fi
