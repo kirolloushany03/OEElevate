@@ -1,10 +1,10 @@
-### OEE Monitoring System
+# OEE Monitoring System
 
-#### Project Overview
+## Project Overview
 
 The OEE (Overall Equipment Effectiveness) Monitoring System is a web application designed to help manufacturing companies monitor and analyze the effectiveness of their equipment. This system allows users to register, log in, create machines, and record OEE data for these machines. Users can then view detailed reports and statistics to improve their equipment's efficiency.
 
-#### Key Features
+## Key Features
 
 1. **User Authentication**:
    - **Registration**: Users can create an account by providing their full name, company name, email, and password.
@@ -23,7 +23,7 @@ The OEE (Overall Equipment Effectiveness) Monitoring System is a web application
    - **Machine Summary**: View a summary of each machine's performance, including the sum of good units, average availability, average performance, average quality, and average OEE.
    - **OEE Records**: Detailed view of all OEE records for a machine.
 
-#### Technology Stack
+## Technology Stack
 
 - **Backend**:
   - **Flask**: Web framework for building the API.
@@ -36,7 +36,7 @@ The OEE (Overall Equipment Effectiveness) Monitoring System is a web application
   - **HTML/CSS/JavaScript**: For building the user interface.
   - **Bootstrap**: For responsive design and styling.
 
-#### Endpoints
+## Endpoints
 
 1. **User Authentication**:
    - `POST /api/auth/register`: Register a new user.
@@ -52,7 +52,7 @@ The OEE (Overall Equipment Effectiveness) Monitoring System is a web application
    - `POST /api/oee_records`: Add a new OEE record to a machine.
    - `GET /api/oee_records`: Get all OEE records (for development/testing purposes).
 
-#### Sample Workflow
+## Sample Workflow
 
 1. **User Registration and Login**:
    - The user registers with their full name, company name, email, and password.
@@ -69,7 +69,7 @@ The OEE (Overall Equipment Effectiveness) Monitoring System is a web application
 4. **Reporting and Analysis**:
    - The user views a summary of the machine's performance, including aggregated data such as good units, availability, performance, quality, and OEE.
 
-#### Future Enhancements
+## Future Enhancements
 
 - **User Roles and Permissions**: Differentiate between admin and regular users.
 - **Graphical Reports**: Provide visualizations for OEE data.
