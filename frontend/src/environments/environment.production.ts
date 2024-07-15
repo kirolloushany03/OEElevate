@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://alihaitham.tech/api'
+  apiUrl: 'https://alihaitham.tech/api'
 }
