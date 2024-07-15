@@ -15,8 +15,8 @@ app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(minutes=15)
 app.config['JWT_REFRESH_TOKEN_EXPIRES'] = timedelta(days=30)
 
 db = SQLAlchemy(app)
-
 jwt = JWTManager(app)
+
 
 @jwt.expired_token_loader
 def expired_token_callback(jwt_header, jwt_pyload):
