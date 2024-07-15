@@ -1,0 +1,260 @@
+.
+├── README.md
+├── backend
+│   ├── poee
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-38.pyc
+│   │   │   ├── claculations.cpython-38.pyc
+│   │   │   ├── models.cpython-38.pyc
+│   │   │   └── routes.cpython-38.pyc
+│   │   ├── claculations.py
+│   │   ├── models.py
+│   │   └── routes.py
+│   ├── requirements.txt
+│   ├── run.py
+│   ├── scripts.js
+│   └── styles.css
+├── frontend
+│   ├── README.md
+│   ├── angular.json
+│   ├── dist
+│   │   ├── 3rdpartylicenses.txt
+│   │   └── browser
+│   │       ├── assets
+│   │       │   ├── fonts
+│   │       │   │   └── Open_Sans
+│   │       │   │       ├── OpenSans-Italic-VariableFont_wdth,wght.ttf
+│   │       │   │       ├── OpenSans-Variable.ttf
+│   │       │   │       └── README.txt
+│   │       │   └── scss
+│   │       │       ├── colors.scss
+│   │       │       ├── devextreme.scss
+│   │       │       ├── font.scss
+│   │       │       ├── global.scss
+│   │       │       ├── reboot.scss
+│   │       │       └── utils.scss
+│   │       ├── chunk-A3EPPO4K.js
+│   │       ├── chunk-A3EPPO4K.js.map
+│   │       ├── chunk-DYIXH4MK.js
+│   │       ├── chunk-DYIXH4MK.js.map
+│   │       ├── chunk-GTYHA3F5.js
+│   │       ├── chunk-GTYHA3F5.js.map
+│   │       ├── chunk-JJDLFBXB.js
+│   │       ├── chunk-JJDLFBXB.js.map
+│   │       ├── chunk-RSRVZNX2.js
+│   │       ├── chunk-RSRVZNX2.js.map
+│   │       ├── chunk-SVFMNYS2.js
+│   │       ├── chunk-SVFMNYS2.js.map
+│   │       ├── dashboard.component-AHVVQFYD.js
+│   │       ├── dashboard.component-AHVVQFYD.js.map
+│   │       ├── favicon.ico
+│   │       ├── index.html
+│   │       ├── layout.component-536GM3C5.css.map
+│   │       ├── login.component-O3GWUMTG.js
+│   │       ├── login.component-O3GWUMTG.js.map
+│   │       ├── login.component-XNLWAIJE.css.map
+│   │       ├── machine-details.component-RWTCRI47.js
+│   │       ├── machine-details.component-RWTCRI47.js.map
+│   │       ├── machines.component-NCQ6B2ZM.js
+│   │       ├── machines.component-NCQ6B2ZM.js.map
+│   │       ├── main-ZWD7KRIF.js
+│   │       ├── main-ZWD7KRIF.js.map
+│   │       ├── media
+│   │       │   ├── dxicons-COHMSREU.woff
+│   │       │   ├── dxicons-YDVXLDGA.ttf
+│   │       │   ├── dxicons-ZYFW2P72.woff2
+│   │       │   ├── fa-brands-400-LUMNIJ6A.ttf
+│   │       │   ├── fa-brands-400-Q5MHU2AU.woff2
+│   │       │   ├── fa-regular-400-HTG32PIJ.woff2
+│   │       │   ├── fa-regular-400-QFECZVGZ.ttf
+│   │       │   ├── fa-solid-900-BMGMRJW7.woff2
+│   │       │   ├── fa-solid-900-NHJRIGXE.ttf
+│   │       │   ├── fa-v4compatibility-BYQ7LMO7.woff2
+│   │       │   ├── fa-v4compatibility-FQDQ7UU2.ttf
+│   │       │   ├── fontawesome-webfont-3KIJVIEY.svg
+│   │       │   ├── fontawesome-webfont-5GKVPAEF.woff2
+│   │       │   ├── fontawesome-webfont-FMJ3VJ65.eot
+│   │       │   ├── fontawesome-webfont-RJ6LE7IU.ttf
+│   │       │   └── fontawesome-webfont-Z4ARLA73.woff
+│   │       ├── polyfills-UYWYDBZZ.js
+│   │       ├── polyfills-UYWYDBZZ.js.map
+│   │       ├── sign-up.component-FSMLXTQM.js
+│   │       ├── sign-up.component-FSMLXTQM.js.map
+│   │       ├── sign-up.component-T4WNG5RO.css.map
+│   │       ├── sliding-overlay.component-GN2SLMYI.css.map
+│   │       ├── styles-64R6AXA6.css
+│   │       └── styles-64R6AXA6.css.map
+│   ├── package.json
+│   ├── pnpm-lock.yaml
+│   ├── src
+│   │   ├── app
+│   │   │   ├── app.component.html
+│   │   │   ├── app.component.scss
+│   │   │   ├── app.component.spec.ts
+│   │   │   ├── app.component.ts
+│   │   │   ├── app.config.ts
+│   │   │   ├── app.routes.ts
+│   │   │   ├── auth
+│   │   │   │   ├── auth.guard.spec.ts
+│   │   │   │   ├── logged-in.guard.ts
+│   │   │   │   ├── pages
+│   │   │   │   │   ├── login
+│   │   │   │   │   │   ├── login.component.html
+│   │   │   │   │   │   ├── login.component.scss
+│   │   │   │   │   │   ├── login.component.spec.ts
+│   │   │   │   │   │   └── login.component.ts
+│   │   │   │   │   └── sign-up
+│   │   │   │   │       ├── sign-up.component.html
+│   │   │   │   │       ├── sign-up.component.scss
+│   │   │   │   │       ├── sign-up.component.spec.ts
+│   │   │   │   │       └── sign-up.component.ts
+│   │   │   │   ├── service
+│   │   │   │   │   ├── auth.service.spec.ts
+│   │   │   │   │   └── auth.service.ts
+│   │   │   │   └── state
+│   │   │   │       ├── auth.actions.ts
+│   │   │   │       ├── auth.state.spec.ts
+│   │   │   │       └── auth.state.ts
+│   │   │   ├── dashboard
+│   │   │   │   ├── dashboard.component.html
+│   │   │   │   ├── dashboard.component.scss
+│   │   │   │   ├── dashboard.component.spec.ts
+│   │   │   │   └── dashboard.component.ts
+│   │   │   ├── interceptors
+│   │   │   │   ├── auth.interceptor.spec.ts
+│   │   │   │   └── auth.interceptor.ts
+│   │   │   ├── layout
+│   │   │   │   ├── layout.component.html
+│   │   │   │   ├── layout.component.scss
+│   │   │   │   ├── layout.component.spec.ts
+│   │   │   │   ├── layout.component.ts
+│   │   │   │   └── side-menu
+│   │   │   │       ├── side-menu.component.html
+│   │   │   │       ├── side-menu.component.scss
+│   │   │   │       ├── side-menu.component.spec.ts
+│   │   │   │       └── side-menu.component.ts
+│   │   │   ├── machines
+│   │   │   │   ├── components
+│   │   │   │   │   ├── entries-table
+│   │   │   │   │   │   ├── entries-table.component.html
+│   │   │   │   │   │   ├── entries-table.component.scss
+│   │   │   │   │   │   ├── entries-table.component.spec.ts
+│   │   │   │   │   │   └── entries-table.component.ts
+│   │   │   │   │   └── entry-form
+│   │   │   │   │       ├── entry-form.component.html
+│   │   │   │   │       ├── entry-form.component.scss
+│   │   │   │   │       ├── entry-form.component.spec.ts
+│   │   │   │   │       └── entry-form.component.ts
+│   │   │   │   ├── machines.component.html
+│   │   │   │   ├── machines.component.scss
+│   │   │   │   ├── machines.component.spec.ts
+│   │   │   │   ├── machines.component.ts
+│   │   │   │   ├── pages
+│   │   │   │   │   └── machine-details
+│   │   │   │   │       ├── machine-details.component.html
+│   │   │   │   │       ├── machine-details.component.scss
+│   │   │   │   │       ├── machine-details.component.spec.ts
+│   │   │   │   │       └── machine-details.component.ts
+│   │   │   │   ├── service
+│   │   │   │   │   └── machine.service.ts
+│   │   │   │   └── state
+│   │   │   │       └── machines
+│   │   │   │           ├── machines.actions.ts
+│   │   │   │           ├── machines.state.spec.ts
+│   │   │   │           └── machines.state.ts
+│   │   │   ├── models
+│   │   │   │   ├── auth.ts
+│   │   │   │   ├── machine.ts
+│   │   │   │   ├── oee-record.ts
+│   │   │   │   └── request-error.ts
+│   │   │   ├── services
+│   │   │   │   └── crud
+│   │   │   │       ├── crud.service.spec.ts
+│   │   │   │       └── crud.service.ts
+│   │   │   ├── shared
+│   │   │   │   └── sliding-overlay
+│   │   │   │       ├── sliding-overlay.component.html
+│   │   │   │       ├── sliding-overlay.component.scss
+│   │   │   │       ├── sliding-overlay.component.spec.ts
+│   │   │   │       └── sliding-overlay.component.ts
+│   │   │   ├── state
+│   │   │   │   └── ui
+│   │   │   │       ├── ui.state.spec.ts
+│   │   │   │       └── ui.state.ts
+│   │   │   └── utlils
+│   │   │       └── operators.ts
+│   │   ├── assets
+│   │   │   ├── fonts
+│   │   │   │   └── Open_Sans
+│   │   │   │       ├── OpenSans-Italic-VariableFont_wdth,wght.ttf
+│   │   │   │       ├── OpenSans-Variable.ttf
+│   │   │   │       └── README.txt
+│   │   │   └── scss
+│   │   │       ├── colors.scss
+│   │   │       ├── devextreme.scss
+│   │   │       ├── font.scss
+│   │   │       ├── global.scss
+│   │   │       ├── reboot.scss
+│   │   │       └── utils.scss
+│   │   ├── environments
+│   │   │   ├── environment.development.ts
+│   │   │   ├── environment.kk.ts
+│   │   │   ├── environment.localstaging.ts
+│   │   │   ├── environment.production.ts
+│   │   │   └── environment.ts
+│   │   ├── favicon.ico
+│   │   ├── index.html
+│   │   ├── main.ts
+│   │   └── styles.scss
+│   ├── tailwind.config.js
+│   ├── tsconfig.app.json
+│   ├── tsconfig.json
+│   └── tsconfig.spec.json
+├── install-nginx
+├── landing-page
+│   ├── 50x.html
+│   ├── images
+│   │   ├── ai.png
+│   │   ├── ali.jpg
+│   │   ├── claclations.png
+│   │   ├── cover.jpg
+│   │   ├── cover.png
+│   │   ├── eslam.png
+│   │   ├── github.svg
+│   │   ├── histroy.png
+│   │   ├── html
+│   │   │   ├── 50x.html
+│   │   │   ├── index.html
+│   │   │   ├── scripts.js
+│   │   │   └── styles.css
+│   │   ├── kirollous Hanna.jpeg
+│   │   ├── linkedin.svg
+│   │   └── twitter-x.svg
+│   ├── index.html
+│   ├── lib
+│   │   └── bootstrap
+│   │       ├── css
+│   │       │   ├── bootstrap.min.css
+│   │       │   └── bootstrap.min.css.map
+│   │       └── js
+│   │           ├── bootstrap.bundle.min.js
+│   │           └── bootstrap.bundle.min.js.map
+│   ├── scripts.js
+│   └── styles.css
+├── nginx.conf
+├── nginx.dev.conf
+├── nginx_errorpage.html
+├── reload
+├── reload-ng
+├── remove-nginx
+├── serve
+├── setup-nginx
+├── setup-nginx-dev
+├── setup-nginx-prod
+├── start-gunicorn
+├── start-nginx
+├── stop
+├── stop-gunicorn
+├── stop-nginx
+└── tree.txt
