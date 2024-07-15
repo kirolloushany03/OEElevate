@@ -509,3 +509,5 @@ def get_bad_units_rate():
 
     # Return the bad units rate as JSON
     return str(round(bad_units_rate, 4)), 200
+
+#forgetting password
