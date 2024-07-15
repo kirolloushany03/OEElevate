@@ -37,7 +37,6 @@
               "devexpress-diagram",
               "jszip"
             ],
-            "progress": false,
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
