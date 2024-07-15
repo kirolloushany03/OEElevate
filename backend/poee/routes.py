@@ -9,7 +9,7 @@ from datetime import datetime
 
 
 # -------------------------------------------(check_running)--------------------------------------------------
-@app.route("/api", methods=['GET'])
+@app.route("/api/", methods=['GET'])
 def check_running():
     return "Server is up and running", 200
 
@@ -409,10 +409,10 @@ def get_oee_records(id):
 def get_machines_with_lowest_oee():
     # Get the user ID from the JWT token
     user_id = get_jwt_identity()
-    
+
     # Get the 'count' query parameter from the request, defaulting to 5 if not provided
     count = request.args.get('count', default=5, type=int)
-    
+
     # Query to calculate average OEE for each machine
     avg_oee_query = db.session.query(
         OEERecord.machine_id,
