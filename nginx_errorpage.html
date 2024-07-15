@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+        }
+        .error-code {
+            font-size: 72px;
+            color: #812dbc; /* Darker violet color */
+        }
+        .message {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .home-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: white;
+            background-color: #4b0082; /* Darker violet color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .home-button:hover {
+            background-color: white;
+            color: #691aa0; /* Darker violet color */
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="error-code" id="error-code"></div>
+        <div class="message">Sorry, this page is unavailable. Go to the home page.</div>
+        <button class="home-button" onclick="goHome()">Home</button>
+    </div>
+
+    <script>
+        // Set the error code dynamically based on the URL
+        const errorCode = window.location.pathname.split('/').pop();
+        document.getElementById('error-code').innerText = `Error ${errorCode}`;
+
+        // JavaScript function for redirecting to the home page
+        function goHome() {
+            window.location.href = '/path/to/home'; // Replace '/path/to/home' with your actual home page path
+        }
+    </script>
+</body>
+</html>
