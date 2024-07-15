@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://127.0.0.1:5000/api' // UPDATE THIS LINE
+  apiUrl: 'https://kirolloushany.tech/api' // UPDATE THIS LINE
 }

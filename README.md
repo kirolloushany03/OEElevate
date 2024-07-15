@@ -11,8 +11,8 @@ Make sure that you have node and npm install. If they're not installed, I recomm
 After you've installed node:
 
 1. Install pnpm globally by running `npm install -g pnpm`
-2. Setup pnpm by running pnpm setup
-3. Install the Angular CLI tool globably by running `pnpm i -g @angular/cli@17`
+2. Setup pnpm by running `pnpm setup`
+3. Install the Angular CLI tool globably by running `pnpm i -g @angular/cli@17`. Run `ng version` to confirm installation.
 4. Navigate to the frontend folder `cd ./frontend`
 5. Run `pnpm install` to install all project dependencies
 
@@ -36,9 +36,9 @@ Navigate to the `backend` directory and use `./run.py` to run the backend.
 
 ### Build (Frontend)
 
-To build the project so that it is ready for production please run `ng build` in the frontend directory. If you would like to see a progress indicator while the app is being built, use the `--progress` option.
+To build the project so that it is ready for production please run `ng build` in the frontend directory.
 
-Another important option is the `--configuration` option which specifies which build configuration will be used.
+Another very important option when building is the `--configuration` option which specifies which build configuration will be used.
 
 There are different build configurations available:
 
@@ -58,7 +58,7 @@ Now you can run the `./serve` script to serve the whole project using an nginx s
 The `./serve` script uses two scripts:
 
 1. _start-gunicorn_ - Starts the backend in using gunicorn
-2. _start-nginx_ - Starts the nginx webserver that serves the landing-page and the landing-page, and the backend by proxy
+2. _start-nginx_ - Starts the nginx webserver that serves the landing-page, the frontend, and the backend by proxy
 
 In the `./start-nginx` script, nginx (if not found) is installed by the `./install-nginx` script which follows the instructions for installing nginx on Ubuntu found on [this page](https://nginx.org/en/linux_packages.html) of the nginx docs.
 
