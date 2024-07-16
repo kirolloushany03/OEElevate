@@ -9,13 +9,13 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 
 app.config['SECRET_KEY'] = 'f908ced235bdd1bb2a13d72717b22fba87f29ccc'
 app.config['JWT_SECRET_KEY'] = 'f908ced235bdd1bb2a13d72717b22fba87f29ccc'
+app.config['SECURITY_PASSWORD_SALT'] ='c63fa8c970cd64e39b8a2ca62ad192a7c55ad20975544499'
 app.config['SQLALCHEMY_DATABASE_URI']= 'sqlite:///oee.db'
 
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(minutes=15)
 app.config['JWT_REFRESH_TOKEN_EXPIRES'] = timedelta(days=30)
 
 db = SQLAlchemy(app)
-
 jwt = JWTManager(app)
 
 @jwt.expired_token_loader
