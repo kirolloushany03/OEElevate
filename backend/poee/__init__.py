@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from datetime import timedelta
+from flask_mail import Mail
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
@@ -15,8 +16,16 @@ app.config['SQLALCHEMY_DATABASE_URI']= 'sqlite:///oee.db'
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(minutes=15)
 app.config['JWT_REFRESH_TOKEN_EXPIRES'] = timedelta(days=30)
 
+app.config['MAIL_SERVER'] = 'smtp.fastmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_USERNAME'] = 'oeelevate@fastmail.com'
+app.config['MAIL_PASSWORD'] = '2v3j3z226p9l7z7j'
+
 db = SQLAlchemy(app)
 jwt = JWTManager(app)
+mail = Mail(app)
 
 @jwt.expired_token_loader
 def expired_token_callback(jwt_header, jwt_pyload):
