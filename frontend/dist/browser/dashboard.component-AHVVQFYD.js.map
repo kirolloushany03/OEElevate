@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/dashboard/dashboard.component.ts", "src/app/dashboard/dashboard.component.html"],
-  "sourcesContent": ["import { Component } from '@angular/core';\nimport { DxChartModule } from 'devextreme-angular';\n\n@Component({\n  selector: 'app-dashboard',\n  standalone: true,\n  imports: [\n    DxChartModule\n  ],\n  templateUrl: './dashboard.component.html',\n  styleUrl: './dashboard.component.scss'\n})\nexport class DashboardComponent {\n\n}\n", "<h1>Dashboard</h1>\n"],
-  "mappings": "iHAYA,IAAaA,GAAkB,IAAA,CAAzB,IAAOA,EAAP,MAAOA,CAAkB,yCAAlBA,EAAkB,sBAAlBA,EAAkBC,UAAA,CAAA,CAAA,eAAA,CAAA,EAAAC,WAAA,GAAAC,SAAA,CAAAC,CAAA,EAAAC,MAAA,EAAAC,KAAA,EAAAC,SAAA,SAAAC,EAAAC,EAAA,CAAAD,EAAA,ICZ/BE,EAAA,EAAA,IAAA,EAAIC,EAAA,EAAA,WAAA,EAASC,EAAA,kBDOTC,CAAa,CAAA,CAAA,EAKX,IAAOb,EAAPc,SAAOd,CAAkB,GAAA",
-  "names": ["DashboardComponent", "selectors", "standalone", "features", "\u0275\u0275StandaloneFeature", "decls", "vars", "template", "rf", "ctx", "\u0275\u0275elementStart", "\u0275\u0275text", "\u0275\u0275elementEnd", "DxChartModule", "_DashboardComponent"]
-}

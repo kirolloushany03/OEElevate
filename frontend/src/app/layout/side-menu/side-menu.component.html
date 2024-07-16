@@ -2,14 +2,14 @@
   <ul class="flex flex-col h-full justify-center gap-3 px-8 bg-bg">
     <li class="" *ngFor="let item of items">
       <a class="nav-link text-lg text-muted" [routerLink]="item.link" routerLinkActive="text-primary">
-        <i class="me-3 text-2xl fa-solid {{item.icon}}"></i>
-        {{item.title}}
+        <i class="text-2xl fa-solid {{item.icon}}"></i>
+        <span class="ms-3 hidden md:inline">{{item.title}}</span>
       </a>
     </li>
     <li>
       <button class="nav-link text-lg text-danger" (click)="logout()">
-        <i class="me-3 text-2xl fa-solid fa-sign-out-alt"></i>
-        Logout
+        <i class="text-2xl fa-solid fa-sign-out-alt"></i>
+        <span class="ms-3 hidden md:inline">Logout</span>
       </button>
     </li>
   </ul>

@@ -11,7 +11,7 @@ module.exports = {
         bg: {
           main: 'var(--main-bg)',
           DEFAULT: 'var(--default-bg)',
-          primary: 'var(--primary-bg)',
+          primary: 'var(--primary)',
         },
         fg: {
           DEFAULT: 'var(--default-fg)',
@@ -19,13 +19,13 @@ module.exports = {
           muted: 'var(--muted-fg)',
         },
         primary: {
-          DEFAULT: 'var(--primary-bg)',
+          DEFAULT: 'var(--primary)',
           light: 'var(--primary-light)',
           dark: 'var(--primary-dark)',
           fg: 'var(--primary-fg)',
         },
         danger: {
-          DEFAULT: 'var(--danger-bg)',
+          DEFAULT: 'var(--danger)',
           // light: 'var(--danger-light)',
           dark: 'var(--danger-dark)',
           fg: 'var(--danger-fg)',

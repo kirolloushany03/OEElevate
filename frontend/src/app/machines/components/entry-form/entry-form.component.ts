@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Machine } from '../../../models/machine';
 import { DxDateBoxModule } from 'devextreme-angular';
 import { Store } from '@ngxs/store';
-import { AddOeeRecord } from '../../state/machines/machines.actions';
+import { AddOeeRecord } from '../../../state/machines/machines.actions';
 
 @Component({
   selector: 'oee-entry-form',
