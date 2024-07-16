@@ -1,4 +1,4 @@
-#!/home/kk/desktop_testing/OEElevate/backend/2oee/bin/python
+#!oee/bin/python
 
 from poee import app, db , mail
 
