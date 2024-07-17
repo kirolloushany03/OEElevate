@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "oee-fusion-frontend": {
+    "oeelevate-frontend": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -117,10 +117,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "oee-fusion-frontend:build:production"
+              "buildTarget": "oeelevate-frontend:build:production"
             },
             "development": {
-              "buildTarget": "oee-fusion-frontend:build:development"
+              "buildTarget": "oeelevate-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -128,7 +128,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "oee-fusion-frontend:build"
+            "buildTarget": "oeelevate-frontend:build"
           }
         },
         "test": {
