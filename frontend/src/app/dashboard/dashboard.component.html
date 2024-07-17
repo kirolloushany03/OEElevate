@@ -45,7 +45,7 @@
 
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 w-full">
         <a class="box text-center text-fg" *ngFor="let machine of ((machines$ | async)?.slice(0, 20) ?? [])"
-           [routerLink]="['/machines/', machine.id]">
+           [routerLink]="['/machines/details/', machine.id]">
           <p class="font-bold">{{machine.machine_name}}</p>
           <p class="mt-auto">id: {{machine.id}}</p>
         </a>
