@@ -4,7 +4,7 @@
   --default-bg: #f5f5f5;
   --default-fg: #000000;
 
-  --primary-bg: #0091ca;
+  --primary: #0091ca;
   --primary-fg: #ffffff;
 
 }
@@ -14,11 +14,19 @@
   --default-bg: #ffffff10;
   --default-fg: #eeeeee;
 
-  --primary-bg: #0091ca;
+  --primary: #0091ca;
   --primary-dark: #0a789c;
   --primary-fg: #ffffff;
 
-  --danger-bg: #c00505;
+  --success: #00a000;
+  --success-dark: #007800;
+  --success-fg: #ffffff;
+
+  --warning: #ff8c00;
+  --warning-dark: #d17d00;
+  --warning-fg: #ffffff;
+
+  --danger: #c00505;
   --danger-dark: #910606;
   --danger-fg: #ffffff;
 

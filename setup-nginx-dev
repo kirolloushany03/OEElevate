@@ -7,8 +7,8 @@ sudo rm -rf /usr/share/nginx/html/*
 sudo ln -sr ./nginx.dev.conf /etc/nginx/nginx.conf
 
 # Copy from dist to the nginx directory
-sudo mkdir -p /usr/share/nginx/html/oee-fusion/app
-sudo cp -r ./frontend/dist/browser/* /usr/share/nginx/html/oee-fusion/app/
+sudo mkdir -p /usr/share/nginx/html/oeelevate/app
+sudo cp -r ./frontend/dist/browser/* /usr/share/nginx/html/oeelevate/app/
 
 # Copy landing page to the nginx directory
 sudo cp -r -t /usr/share/nginx/html/ ./landing-page/*

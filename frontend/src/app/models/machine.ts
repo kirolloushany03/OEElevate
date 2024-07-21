@@ -2,7 +2,7 @@ import { OeeRecord } from "./oee-record";
 
 export interface Machine {
   id: number;
-  name: string;
+  machine_name: string;
   created_at: string;
 }
 

@@ -1,9 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { DxDataGridModule, DxFormComponent, DxFormModule } from 'devextreme-angular';
-import { AddMachine, GetMachines } from './state/machines/machines.actions';
+import { AddMachine, GetMachines } from '../state/machines/machines.actions';
 import { Machine, MachineForm, MachineSummary } from '../models/machine';
-import { MachinesState } from './state/machines/machines.state';
+import { MachinesState } from '../state/machines/machines.state';
 import { Observable, skip } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { SlidingOverlayComponent } from '../shared/sliding-overlay/sliding-overlay.component';

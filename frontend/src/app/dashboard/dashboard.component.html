@@ -1,1 +1,55 @@
-<h1>Dashboard</h1>
+<h1 class="mb-4">Dashboard <span class="text-md"></span></h1>
+
+<div class="container-fluid">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+    <div class="box md:col-span-2">
+      <h3 class="text-start">Lowest {{(machinesWithLowestOEE$ | async)?.length ?? '-'}} OEE's</h3>
+
+      <dx-chart class="block w-full max-w-full mt-auto" [dataSource]="machinesWithLowestOEE$ | async">
+        <dxo-size [height]="200"></dxo-size>
+        <dxo-legend horizontalAlignment="center" verticalAlignment="bottom"></dxo-legend>
+
+        <dxi-value-axis>
+          <dxo-label format="percent"></dxo-label>
+        </dxi-value-axis>
+
+        <dxi-series type="bar" name="OEE" argumentField="name" valueField="average_oee"></dxi-series>
+        <dxi-series type="bar" name="Performance" argumentField="name" valueField="average_performance"></dxi-series>
+        <dxi-series type="bar" name="Quality" argumentField="name" valueField="average_quality"></dxi-series>
+        <dxi-series type="bar" name="Availability" argumentField="name" valueField="average_availability"></dxi-series>
+      </dx-chart>
+    </div>
+
+    <div class="box">
+      <h3 class="text-center">Percentage of bad items</h3>
+      <dx-bar-gauge class="block p-5 w-full max-w-full" [relativeInnerRadius]="0.5"
+                    [values]="[(badItemsRate$ | async) ?? 0]" [startValue]="0" [endValue]="1"
+                    backgroundColor="var(--default-bg)" [palette]="['var(' + (badItemsRateColor$ | async) + ')']"
+                    centerTemplate="center">
+        <dxo-geometry [startAngle]="90" [endAngle]="90"></dxo-geometry>
+        <dxo-label [visible]="false" format="percent"></dxo-label>
+        <dxo-size [height]="200"></dxo-size>
+        <svg *dxTemplate="let gauge of 'center'">
+          <text text-anchor="center" y="50%" [ngStyle]="{fill: 'var(' + (badItemsRateColor$ | async) + ')'}"
+                font-family="inherit" font-size="20">
+            {{((badItemsRate$ | async) ?? 0) | percent}}
+          </text>
+        </svg>
+      </dx-bar-gauge>
+    </div>
+
+    <div class="box col-span-full min-h-36">
+      <h3 class="w-full mb-3">
+        Machines ({{(machines$ | async)?.length ?? '-'}}):
+      </h3>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 w-full">
+        <a class="box text-center text-fg" *ngFor="let machine of ((machines$ | async)?.slice(0, 20) ?? [])"
+           [routerLink]="['/machines/details', machine.id]">
+          <p class="font-bold">{{machine.machine_name}}</p>
+          <p class="mt-auto">id: {{machine.id}}</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

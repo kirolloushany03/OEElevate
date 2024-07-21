@@ -1,0 +1,16 @@
+Endpoint                      Methods  Rule                            
+----------------------------  -------  --------------------------------
+add_oee_record                POST     /api/machine/<int:id>/oeeRecords
+check_running                 GET      /api/                           
+create_machine                POST     /api/machines                   
+get_all_machines_info         GET      /api/machines                   
+get_bad_units_rate            GET      /api/bad-units-rate             
+get_machine_by_id             GET      /api/machines/<int:id>          
+get_machine_summary           GET      /api/machines/summary           
+get_machines_with_lowest_oee  GET      /api/machines/lowest_oee        
+get_oee_records               GET      /api/machine/<int:id>/oeeRecords
+get_user_info                 GET      /api/user                       
+login                         POST     /api/auth/login                 
+refresh                       POST     /api/auth/refresh               
+register                      POST     /api/auth/register              
+static                        GET      /static/<path:filename>         
