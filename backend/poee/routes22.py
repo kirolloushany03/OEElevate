@@ -9,7 +9,6 @@ from datetime import datetime
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadSignature
 from flask_mail import Message
 
-# -------------------------------------------(check_running)--------------------------------------------------
 @app.route("/api/", methods=['GET'])
 def check_running():
     return "Server is up and running", 200
