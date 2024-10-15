@@ -5,8 +5,8 @@ from flask_jwt_extended import create_access_token
 from poee.models import User
 from passlib.hash import pbkdf2_sha256
 from flask_jwt_extended import create_access_token, jwt_required,get_jwt_identity, create_refresh_token
-
-
+from poee.token_genration import generate_invitation_token
+from poee.decorator_function import role_required
 
 
 
@@ -82,3 +82,23 @@ def refresh():
     new_refresh_token =  create_access_token(identity=current_user_id, fresh=False)
 
     return jsonify(access_token=new_token, refresh2_acesstoken=new_refresh_token)
+
+
+
+@app.route('/api/admin/invite', methods=['POST'])
+@jwt_required
+@role_required('admin')
+def invite_emploee():
+    data = request.get_json()
+
+    current_user = get_jwt_identity()
+    admin_id = current_user['id']
+
+    factory_id = data.get('factory_id')
+
+    if not factory_id:
+        return jsonify({"error": "Factory ID is required."}), 400
+    
+    token = generate_invitation_token(admin_id, factory_id)
+
+    return jsonify({'invite_token': token}), 200
