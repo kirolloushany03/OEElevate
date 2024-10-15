@@ -2,18 +2,28 @@ from datetime import datetime
 from poee import db
 from flask_login import UserMixin
 
+class Factory(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    created_at = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())
+    users = db.relationship('User', backref='factory', lazy=True)
+    machine = db.relationship('Machine', backref='factory', lazy=True)
+
+
+
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
-    company_name = db.Column(db.String(120), nullable=False)
+    factory_name = db.Column(db.String(120), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())
+    role = db.Column(db.String(50), default='admin')
     machine = db.relationship('Machine', backref='machines', lazy=True)
+    factory_id = db.Column(db.Integer, db.ForeignKey('factory.id'))
 
     def __repr__(self):
         return (f'<User id={self.id}, username={self.username}, email={self.email}, '
-                f'company_name={self.company_name}, created_at={self.created_at}>')
+                f'company_name={self.company_name}, created_at={self.created_at}, factory_id={self.factory_id}>')
     
 class Machine(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -21,10 +31,11 @@ class Machine(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     oee_record = db.relationship('OEERecord', backref='oee_records', lazy=True)
-    
+    factory_id = db.Column(db.Integer, db.ForeignKey('factory.id'))
+
     def __repr__(self):
         return (f'<Machine id={self.id}, machine_name={self.machine_name}, created_at={self.created_at}, '
-                    f'user_id={self.user_id}>')
+                    f'user_id={self.user_id}, factory_id={self.factory_id}>')
     
 class OEERecord(db.Model):
     id = db.Column(db.Integer, primary_key=True)
