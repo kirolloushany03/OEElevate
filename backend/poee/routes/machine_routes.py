@@ -3,9 +3,13 @@ from flask import jsonify, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from poee.models import Machine, User, OEERecord
 from sqlalchemy import func
+from poee.decorator_function import is_employee_role
+
+#remider to make delete machine route
 
 @app.route('/api/machines', methods=['POST'])
 @jwt_required()
+@is_employee_role(False)
 def create_machine():
     data = request.get_json()
 
@@ -36,6 +40,7 @@ def create_machine():
 
 @app.route('/api/machines', methods=['GET'])
 @jwt_required()
+@is_employee_role([False, True])
 def get_all_machines_info():
     user_id = get_jwt_identity()
     user = User.query.get(user_id)
@@ -62,6 +67,7 @@ def get_all_machines_info():
 #----------------------imporved the database query as now we do 2 only instad of 5----------
 @app.route('/api/machines/<int:id>', methods=['GET'])
 @jwt_required()
+@is_employee_role([False, True])
 def get_machine_by_id(id):
     user_id = get_jwt_identity()
 
@@ -124,8 +130,10 @@ def get_machine_by_id(id):
 
 
     #----------------with subquery-------------------------
+
 @app.route('/api/machines/summary', methods=['GET'])
 @jwt_required()
+@is_employee_role([False, True])
 def get_machine_summary():
     user_id = get_jwt_identity()
     machines = Machine.query.filter_by(user_id=user_id).order_by(Machine.created_at.desc()).all()
