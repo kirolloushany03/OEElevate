@@ -2,11 +2,11 @@ import { Component, ViewChild } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { DxFormComponent, DxFormModule } from 'devextreme-angular';
-import { Login, SignUp } from '../../state/auth.actions';
+import { SignUp } from '../../state/auth.actions';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-sign-up',
+  selector: 'oee-sign-up',
   standalone: true,
   imports: [
     CommonModule,
@@ -36,7 +36,7 @@ export class SignUpComponent {
 
   constructor(private store: Store, private router: Router) { }
 
-  onSignUp(e: any) {
+  onSignUp(e: Event) {
     e.preventDefault();
     const validationGroup = this.formComponent?.instance.validate();
 

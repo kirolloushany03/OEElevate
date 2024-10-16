@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Store } from '@ngxs/store';
 import TextBox, { Properties as TextBoxProperties } from 'devextreme/ui/text_box';
 import { GetUserInfo } from './auth/state/auth.actions';
 
 @Component({
-  selector: 'app-root',
+  selector: 'oee-root',
   standalone: true,
   imports: [RouterOutlet],
   templateUrl: './app.component.html',

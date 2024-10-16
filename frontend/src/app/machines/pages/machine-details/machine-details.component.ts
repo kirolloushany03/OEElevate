@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map, of, Subscription, switchMap, tap } from 'rxjs';
 import { MachineSummary } from '../../../models/machine';

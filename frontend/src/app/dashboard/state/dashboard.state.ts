@@ -40,33 +40,33 @@ export class DashboardState {
   }
 
   @Action(GetBadItemsRate)
-  getBadItemsRate(ctx: StateContext<DashboardStateModel>, action: GetBadItemsRate) {
+  getBadItemsRate(ctx: StateContext<DashboardStateModel>, _action: GetBadItemsRate) {
     return this.dashboardService.getBadItemsRate().pipe(
       tap({
-        next: (badItemsPercentage: any) => {
-          ctx.patchState({ badItemsPercentage });
+        next: (badItemsPercentage: unknown) => {
+          ctx.patchState({ badItemsPercentage: badItemsPercentage as number });
         }
       })
     )
   }
 
   @Action(GetMachinesWithLowestOee)
-  getMachinesWithLowestOee(ctx: StateContext<DashboardStateModel>, action: GetMachinesWithLowestOee) {
+  getMachinesWithLowestOee(ctx: StateContext<DashboardStateModel>, _action: GetMachinesWithLowestOee) {
     return this.dashboardService.getMachinesWithLowestOee().pipe(
       tap({
-        next: (machinesWithLowestOee: any) => {
-          ctx.patchState({ machinesWithLowestOee });
+        next: (machinesWithLowestOee: unknown) => {
+          ctx.patchState({ machinesWithLowestOee: machinesWithLowestOee as MachineSummary[] });
         }
       })
     )
   }
 
   @Action(GetMachinesBrief)
-  getMachinesBrief(ctx: StateContext<DashboardStateModel>, action: GetMachinesBrief) {
+  getMachinesBrief(ctx: StateContext<DashboardStateModel>, _action: GetMachinesBrief) {
     return this.dashboardService.getMachines().pipe(
       tap({
-        next: (machinesBrief: any) => {
-          ctx.patchState({ machinesBrief });
+        next: (machinesBrief: unknown) => {
+          ctx.patchState({ machinesBrief: machinesBrief as Machine[] });
         }
       })
     )

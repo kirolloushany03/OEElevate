@@ -6,7 +6,7 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-login',
+  selector: 'oee-login',
   standalone: true,
   imports: [
     CommonModule,
@@ -30,7 +30,7 @@ export class LoginComponent {
 
   constructor(private store: Store, private router: Router) {}
 
-  onLogin(e: any) {
+  onLogin(e: Event) {
     e.preventDefault();
 
     this.store.dispatch(new Login(this.loginForm)).subscribe(() => {

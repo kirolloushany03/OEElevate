@@ -4,16 +4,15 @@ import { DxDataGridModule, DxFormComponent, DxFormModule } from 'devextreme-angu
 import { AddMachine, GetMachines } from '../state/machines/machines.actions';
 import { Machine, MachineForm, MachineSummary } from '../models/machine';
 import { MachinesState } from '../state/machines/machines.state';
-import { Observable, skip } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { SlidingOverlayComponent } from '../shared/sliding-overlay/sliding-overlay.component';
-import { MachineService } from './service/machine.service';
 import { EntriesTableComponent } from './components/entries-table/entries-table.component';
 import { EntryFormComponent } from './components/entry-form/entry-form.component';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-machines',
+  selector: 'oee-machines',
   standalone: true,
   imports: [
     CommonModule,
@@ -65,18 +64,13 @@ export class MachinesComponent {
         this.slidingOverlay?.slideOut();
         this.resetForm();
       },
-      error: (error) => {
+      error: (_error) => {
       }
     });
   }
 
-  log(data: any) {
-    console.log('machine: ', data);
-    return data;
-  }
-
   /* ENTRIES */
-  openEntryForm(data?: any) {
+  openEntryForm(data: Machine) {
     this.entryFormComponent?.open(data);
   }
 }

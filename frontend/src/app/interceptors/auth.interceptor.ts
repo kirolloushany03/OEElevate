@@ -1,14 +1,12 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { catchError, of, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { Logout } from '../auth/state/auth.actions';
-import { Router } from '@angular/router';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const token = localStorage.getItem('token');
   const store = inject(Store);
-  const router = inject(Router);
 
   if (token) {
     req = req.clone({

@@ -11,7 +11,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrl: './sliding-overlay.component.scss'
 })
 export class SlidingOverlayComponent {
-  @Output() close = new EventEmitter<void>();
+  @Output() overlayClose = new EventEmitter<void>();
 
   show = false;
 
@@ -21,6 +21,6 @@ export class SlidingOverlayComponent {
 
   slideOut() {
     this.show = false;
-    this.close.emit();
+    this.overlayClose.emit();
   }
 }

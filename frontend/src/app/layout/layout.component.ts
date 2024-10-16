@@ -3,7 +3,7 @@ import { SideMenuComponent } from './side-menu/side-menu.component';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-layout',
+  selector: 'oee-layout',
   standalone: true,
   imports: [
     SideMenuComponent,

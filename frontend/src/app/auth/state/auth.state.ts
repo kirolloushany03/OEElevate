@@ -3,13 +3,18 @@ import { State, Selector, Action, StateContext } from '@ngxs/store';
 import { GetUserInfo, Login, Logout, SignUp } from './auth.actions';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
-import { catchError, map, tap } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { storeLocally } from '../../utlils/operators';
+
+export interface AuthTokens {
+    access_token?: string;
+    refresh_token?: string;
+}
 
 export interface AuthStateModel {
     token: string | null;
     loggedIn: boolean | null;
-    userInfo: any;
+    userInfo: unknown | null;
     signUpError: string | null;
     loginError: string | null;
 }
@@ -36,12 +41,12 @@ export class AuthState {
     @Action(Login)
     login({ patchState }: StateContext<AuthStateModel>, { payload }: Login) {
         return this.authService.login(payload).pipe(
-            map((res:any) => res['access_token']),
+            map((res) => res['access_token']),
             storeLocally('token'),
             tap({
-                next: (access_token:any) => {
+                next: (access_token) => {
                     patchState({
-                        token: access_token,
+                        token: access_token as string,
                         loggedIn: true,
                         loginError: null
                     });
@@ -68,7 +73,7 @@ export class AuthState {
                         loggedIn: true
                     });
                 },
-                error: (error: any) => {
+                error: (_error) => {
                     patchState({
                         token: null,
                         loggedIn: false
@@ -99,7 +104,7 @@ export class AuthState {
     }
 
     @Action(Logout)
-    logout({ patchState, getState }: StateContext<AuthStateModel>) {
+    logout({ patchState }: StateContext<AuthStateModel>) {
         patchState({
             token: null,
             loggedIn: false,

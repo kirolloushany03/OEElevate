@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { SlidingOverlayComponent } from '../../../shared/sliding-overlay/sliding-overlay.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Machine } from '../../../models/machine';
@@ -20,6 +20,9 @@ import { AddOeeRecord } from '../../../state/machines/machines.actions';
   styleUrl: './entry-form.component.scss'
 })
 export class EntryFormComponent {
+  @Output() submiting = new EventEmitter();
+  @Output() closing = new EventEmitter();
+
   machine: Machine | null = null;
 
   entryForm: FormGroup = this.fb.group({
@@ -42,17 +45,18 @@ export class EntryFormComponent {
     if (this.machine === null || this.entryForm.invalid) return;
 
 
-    this.submitEmitter.emit(this.entryForm);
+    this.submiting.emit(this.entryForm);
     if (!this.editingMode) {
       this.addOeeRecord();
     }
   }
 
-  open(machine: Machine, data?: any) {
+  open(machine: Machine, data?: Record<string, unknown>) {
     this.slidingOverlay?.slideIn();
     this.machine = machine;
     this.editingMode = !!data;
     if (this.editingMode) {
+      if (!data) return;
       this.entryForm.patchValue(data);
     }
   }
@@ -60,7 +64,7 @@ export class EntryFormComponent {
   close() {
     this.slidingOverlay?.slideOut();
     // this.formData = {};
-    this.closeEmitter.emit();
+    this.closing.emit();
   }
 
   get run_time() {
@@ -141,17 +145,13 @@ export class EntryFormComponent {
   addOeeRecord() {
     if (this.machine === null) return;
 
-    this.submitEmitter.emit(this.entryForm);
+    this.submiting.emit(this.entryForm);
     this.store.dispatch(new AddOeeRecord(this.machine, {
       ...this.entryForm.value,
       date: this.dateWithoutTimezone(new Date(this.entryForm.value.date)).toISOString()
     })).subscribe(() => {
       this.close();
-      this.closeEmitter.emit();
       this.entryForm.reset();
     });
   }
-
-  @Output('submit') submitEmitter = new EventEmitter();
-  @Output('close') closeEmitter = new EventEmitter();
 }

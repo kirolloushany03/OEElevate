@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { State, Action, Selector, StateContext } from '@ngxs/store';
 import { AddMachine, AddOeeRecord, GetMachineById, GetMachines } from './machines.actions';
-import { Machine, MachineSummary } from '../../models/machine';
-import { map, tap, timer } from 'rxjs';
+import { MachineSummary } from '../../models/machine';
+import { tap } from 'rxjs';
 import { MachineService } from '../../machines/service/machine.service';
-import { log } from '../../utlils/operators';
 import { HttpStatusCode } from '@angular/common/http';
-import { MaybeErorr, RequestError } from '../../models/request-error';
+import { MaybeErorr } from '../../models/request-error';
 
 export interface MachinesStateModel {
   machines: MachineSummary[];
@@ -38,7 +37,7 @@ export class MachinesState {
   addMachine(ctx: StateContext<MachinesStateModel>, action: AddMachine) {
     return this.machineService.addMachine(action.payload).pipe(
       tap({
-        next: (machine: any) => {
+        next: (_) => {
           ctx.dispatch(new GetMachines())
         },
         error: (error) => console.error('Error adding machine', error)
@@ -47,11 +46,11 @@ export class MachinesState {
   }
 
   @Action(GetMachines)
-  getMachines(ctx: StateContext<MachinesStateModel>, action: GetMachines) {
+  getMachines(ctx: StateContext<MachinesStateModel>, _action: GetMachines) {
     return this.machineService.getMachinesSummary().pipe(
       tap({
-        next: (machines: any) => {
-          ctx.patchState({ machines });
+        next: (machines: unknown) => {
+          ctx.patchState({ machines: machines as MachineSummary[] });
         },
         error: (error) => console.error('Error getting machines', error)
       })
@@ -62,8 +61,8 @@ export class MachinesState {
   getMachineById(ctx: StateContext<MachinesStateModel>, action: GetMachineById) {
     return this.machineService.getMachineById(action.id).pipe(
       tap({
-        next: (machineById: any) => {
-          ctx.patchState({ machineById });
+        next: (machine: unknown) => {
+          ctx.patchState({ machineById: machine as MachineSummary });
         },
         error: (error) => {
           if (error.status === HttpStatusCode.NotFound) {
@@ -87,7 +86,7 @@ export class MachinesState {
   addOeeRecord(ctx: StateContext<MachinesStateModel>, action: AddOeeRecord) {
     return this.machineService.addOeeRecord(action.machine, action.payload).pipe(
       tap({
-        next: (record: any) => {
+        next: (_: unknown) => {
           ctx.dispatch(new GetMachines())
         },
         error: (error) => console.error('Error adding OEE record', error)

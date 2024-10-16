@@ -5,7 +5,7 @@ import { Store } from '@ngxs/store';
 import { Logout } from '../../auth/state/auth.actions';
 
 @Component({
-  selector: 'app-side-menu',
+  selector: 'oee-side-menu',
   standalone: true,
   imports: [
     CommonModule,

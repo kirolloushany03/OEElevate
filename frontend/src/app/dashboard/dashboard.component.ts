@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'oee-dashboard',
   standalone: true,
   imports: [
     AsyncPipe,

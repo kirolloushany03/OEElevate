@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DxDataGridModule } from 'devextreme-angular';
 
 @Component({
@@ -13,7 +13,7 @@ import { DxDataGridModule } from 'devextreme-angular';
   styleUrl: './entries-table.component.scss'
 })
 export class EntriesTableComponent {
-  @Input({required: true}) entries: any[] = [];
+  @Input({required: true}) entries: object[] = [];
 
   constructor() { }
 }

@@ -38,8 +38,6 @@
     </dx-chart>
 
     <oee-entries-table [entries]="(entries$ | async) ?? []"></oee-entries-table>
-    <oee-entry-form #entryForm (submit)="getMachineById(machine?.id)"></oee-entry-form>
+    <oee-entry-form #entryForm (submitted)="getMachineById(machine?.id)"></oee-entry-form>
   </ng-template>
 </ng-container>
-
-
