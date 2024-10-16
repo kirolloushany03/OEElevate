@@ -6,7 +6,7 @@ from poee.models import User
 
 from flask_jwt_extended import get_jwt_identity
 
-def role_required(required_role):
+def is_employee_role(required_role):
     def wrapper(fn):
         @wraps(fn)
         @jwt_required()

@@ -6,7 +6,7 @@ from poee.models import User, Factory
 from passlib.hash import pbkdf2_sha256
 from flask_jwt_extended import create_access_token, jwt_required,get_jwt_identity, create_refresh_token
 from poee.token_genration import generate_invitation_token, confirm_invitation_token
-from poee.decorator_function import role_required
+from poee.decorator_function import is_employee_role
 
 
 
@@ -96,9 +96,9 @@ def login():
         return jsonify({"message": "Invalid credentials"}), 400
 
     if email and pbkdf2_sha256.verify(password, user.password):
-        access_token = create_access_token(identity=user.id, fresh=True)
+        access_token = create_access_token(identity=user.id, fresh=True, additional_claims={"is_employee": user.is_employee} )
         refresh_token = create_refresh_token(identity=user.id)
-        return {"access_token": access_token, "refresh_token": refresh_token}
+        return {"access_token": access_token, "refresh_token": refresh_token, "is_employee": user.is_employee}
 
     return jsonify({"message":"Inavalid credentials"}), 400
 
@@ -117,8 +117,8 @@ def refresh():
 
 
 @app.route('/api/admin/invite', methods=['POST'])
-@jwt_required
-@role_required('admin')
+@jwt_required()
+@is_employee_role(False)
 def invite_emploee():
     data = request.get_json()
 
