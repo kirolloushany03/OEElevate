@@ -5,10 +5,12 @@ from poee.models import OEERecord, Machine
 from poee.claculations import Calculations
 from sqlalchemy import func
 from datetime import datetime
+from poee.decorator_function import is_employee_role
 
 
 @app.route('/api/machine/<int:id>/oeeRecords', methods=['POST'])
 @jwt_required()
+@is_employee_role([False, True])
 def add_oee_record(id):
 
     data = request.get_json()
@@ -69,6 +71,7 @@ def add_oee_record(id):
 
 @app.route('/api/machine/<int:id>/oeeRecords', methods=['GET'])
 @jwt_required()
+@is_employee_role([False, True])
 def get_oee_records(id):
     machine = Machine.query.get(id)
     if not machine:
@@ -106,6 +109,7 @@ def get_oee_records(id):
 
 @app.route('/api/machines/lowest_oee', methods=['GET'])
 @jwt_required()
+@is_employee_role(False)
 def get_machines_with_lowest_oee():
     # Get the user ID from the JWT token
     user_id = get_jwt_identity()
@@ -186,6 +190,7 @@ def get_machines_with_lowest_oee():
 #------------------------------------
 @app.route('/api/bad-units-rate', methods=['GET'])
 @jwt_required()
+@is_employee_role(False)
 def get_bad_units_rate():
     # Get the user ID from the JWT token
     user_id = get_jwt_identity()
