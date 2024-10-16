@@ -20,7 +20,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())
-    role = db.Column(db.String(50), default='admin')
+    is_emploee = db.Column(db.Boolean, default=False) #True = emplee then need token // False= admin
     
     # Relationships
     machines = db.relationship('Machine', backref='user', lazy=True)
