@@ -109,7 +109,7 @@ def get_oee_records(id):
 
 @app.route('/api/machines/lowest_oee', methods=['GET'])
 @jwt_required()
-@is_employee_role(False)
+@is_employee_role([False,True])
 def get_machines_with_lowest_oee():
     # Get the user ID from the JWT token
     user_id = get_jwt_identity()
@@ -190,7 +190,7 @@ def get_machines_with_lowest_oee():
 #------------------------------------
 @app.route('/api/bad-units-rate', methods=['GET'])
 @jwt_required()
-@is_employee_role(False)
+@is_employee_role([False, True])
 def get_bad_units_rate():
     # Get the user ID from the JWT token
     user_id = get_jwt_identity()
