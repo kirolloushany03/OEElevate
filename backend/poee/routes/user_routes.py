@@ -1,7 +1,7 @@
 from poee import app
 from flask import jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from poee.models import User
+from poee.models import User, Factory
 
 # -------------------------------------------(get user info)--------------------------------------------------
 
@@ -12,10 +12,13 @@ def get_user_info():
     user = User.query.get(user_id)
 
     if user:
+        factory = Factory.query.get(user.factory_id)
+        company_name = factory.company_name if factory else None
+
         return jsonify(
             {
                 'username': user.username,
-                'company_name':user.company_name,
+                'company_name': company_name,
                 'email':user.email,
                 'created_at': user.created_at
             }
