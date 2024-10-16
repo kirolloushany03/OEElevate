@@ -17,10 +17,11 @@ def role_required(required_role):
             if current_user is None:
                 return jsonify({"error": "User not found."}), 404
 
-            # Now you can check the role
-            if current_user.is_employee != required_role:  # Assuming is_employee is a boolean
+            # Check if the user role matches the required role
+            if current_user.is_employee != required_role:  
                 return jsonify({"error": "Access forbidden: insufficient permissions."}), 403
             
             return fn(*args, **kwargs)  # Call the original function
         return inner
     return wrapper
+
