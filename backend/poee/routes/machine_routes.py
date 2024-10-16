@@ -9,7 +9,7 @@ from poee.decorator_function import is_employee_role
 
 @app.route('/api/machines', methods=['POST'])
 @jwt_required()
-@is_employee_role(False)
+@is_employee_role([False])
 def create_machine():
     data = request.get_json()
 
