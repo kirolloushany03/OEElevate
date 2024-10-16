@@ -2,10 +2,10 @@
 from poee import app, db
 from flask import request, jsonify
 from flask_jwt_extended import create_access_token
-from poee.models import User
+from poee.models import User, Factory
 from passlib.hash import pbkdf2_sha256
 from flask_jwt_extended import create_access_token, jwt_required,get_jwt_identity, create_refresh_token
-from poee.token_genration import generate_invitation_token
+from poee.token_genration import generate_invitation_token, confirm_invitation_token
 from poee.decorator_function import role_required
 
 
@@ -19,35 +19,66 @@ def register():
     company_name = data.get('company_name')
     email = data.get('email')
     password = data.get('password')
+    invite_token = data.get('invite_token', None)
+    is_employee = data.get('is_employee', False)
 
     if not all([username, company_name, email, password]):
         return jsonify({"error": "Missing required field"}), 400
 
-    existing_user_email= User.query.filter_by(email=email).first()
-    existing_user_username= User.query.filter_by(username=username).first()
+    existing_user_email = User.query.filter_by(email=email).first()
+    existing_user_username = User.query.filter_by(username=username).first()
 
     if existing_user_email or existing_user_username:
         error_message = ''
         if existing_user_email:
-            error_message ='the email is already taken choose another one'
+            error_message = 'The email is already taken, choose another one.'
         if existing_user_username:
             error_message += ' and ' if error_message else ''
-            error_message += 'the username is already taken choose another one'
-        return jsonify({"error":error_message}), 400
+            error_message += 'The username is already taken, choose another one.'
+        return jsonify({"error": error_message}), 400
 
     hashed_password = pbkdf2_sha256.hash(password)
 
-    new_user = User(
-        username=username,
-        company_name=company_name,
-        email=email,
-        password=hashed_password
-    )
+    if invite_token:
+        # Employee registration
+        token_data = confirm_invitation_token(invite_token)
+        if not token_data:
+            return jsonify({"error": "Invalid or expired token"}), 400
 
+        factory_id = token_data['factory_id']  # Extract factory ID from token
+
+        new_user = User(
+            username=username,
+            email=email,
+            password=hashed_password,
+            is_employee=is_employee,  # Employee role
+            factory_id=factory_id  # Link to existing factory
+        )
+
+    else:
+        # Admin registration (no token)
+        # Create the new factory and assign the factory ID to the admin
+        new_factory = Factory(
+            company_name=company_name
+        )
+        db.session.add(new_factory)
+        db.session.flush()  # Flush to get the new factory_id before committing
+
+        # Create admin user and link to the new factory
+        new_user = User(
+            username=username,
+            email=email,
+            password=hashed_password,
+            is_employee=is_employee,  # Admin role
+            factory_id=new_factory.id  # Link the admin to the newly created factory
+        )
+
+    # Save the new user in the database
     db.session.add(new_user)
     db.session.commit()
 
-    return jsonify({"message":"Congratualtions you registerd successfully"}), 200
+    return jsonify({"message": "Congratulations, you registered successfully"}), 200
+
 
 # -------------------------------------------(login)--------------------------------------------------
 
