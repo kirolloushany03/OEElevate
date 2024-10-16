@@ -116,20 +116,22 @@ def refresh():
 
 
 
-@app.route('/api/admin/invite', methods=['POST'])
+@app.route('/api/admin/invite', methods=['GET'])
 @jwt_required()
 @is_employee_role(False)
-def invite_emploee():
-    data = request.get_json()
+def invite_employee():
+    admin_id = get_jwt_identity()
 
-    current_user = get_jwt_identity()
-    admin_id = current_user['id']
+    # Fetch the user and get the factory_id from the user model
+    user = User.query.get(admin_id)  # Assuming current_user contains user ID
+    if user is None:
+        return jsonify({"error": "User not found."}), 404
 
-    factory_id = data.get('factory_id')
+    factory_id = user.factory_id  # Get factory_id from the user
 
     if not factory_id:
-        return jsonify({"error": "Factory ID is required."}), 400
-    
+        return jsonify({"error": "Factory ID not associated with this user."}), 400
+
     token = generate_invitation_token(admin_id, factory_id)
 
     return jsonify({'invite_token': token}), 200
