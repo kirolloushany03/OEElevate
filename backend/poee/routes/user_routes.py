@@ -20,7 +20,8 @@ def get_user_info():
                 'username': user.username,
                 'company_name': company_name,
                 'email':user.email,
-                'created_at': user.created_at
+                'created_at': user.created_at,
+                'role': user.is_employee
             }
         ), 200
     else:
