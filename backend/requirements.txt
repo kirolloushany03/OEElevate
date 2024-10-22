@@ -27,4 +27,5 @@ flask_cors
 gunicorn
 Flask-Mail
 python-dotenv
+google-generativeai
 #pip install -r requirements.txt
