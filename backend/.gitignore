@@ -2,3 +2,4 @@ oee/
 *.pyc
 2oee/
 instance/
+.env

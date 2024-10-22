@@ -4,6 +4,12 @@ from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from datetime import timedelta
 from flask_mail import Mail
+from dotenv import load_dotenv
+import google.generativeai as genai
+import os
+
+load_dotenv()
+
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
@@ -26,6 +32,29 @@ app.config['MAIL_PASSWORD'] = '2v3j3z226p9l7z7j'
 db = SQLAlchemy(app)
 jwt = JWTManager(app)
 mail = Mail(app)
+
+# .env
+GOOGLE_API_KEY=os.getenv("GOOGLE_API_KEY")
+
+# Configure the Google Generative AI model
+genai.configure(api_key=GOOGLE_API_KEY)
+
+generation_config = {
+    "temperature": 1,
+    "top_p": 0.95,
+    "top_k": 40,
+    "max_output_tokens": 8192,
+    "response_mime_type": "text/plain",
+}
+
+# Create the model and chat session
+model = genai.GenerativeModel(
+    model_name="gemini-1.5-pro-002",
+    generation_config=generation_config,
+)
+
+# Define a global chat session that can be reused
+chat_session = model.start_chat()
 
 @jwt.expired_token_loader
 def expired_token_callback(jwt_header, jwt_pyload):
