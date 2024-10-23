@@ -22,7 +22,7 @@ def register():
     invite_token = data.get('invite_token', None)
     is_employee = data.get('is_employee', False)
 
-    if not all([username, company_name, email, password]):
+    if not all([username, email, password]):
         return jsonify({"error": "Missing required field"}), 400
 
     existing_user_email = User.query.filter_by(email=email).first()
