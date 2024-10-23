@@ -9,7 +9,7 @@ import { GetUserInfo } from './auth/state/auth.actions';
   standalone: true,
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
   constructor(private store: Store) {

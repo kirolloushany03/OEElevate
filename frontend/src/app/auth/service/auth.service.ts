@@ -18,6 +18,10 @@ export class AuthService {
     return this.crud.create('/auth/login', payload) as Observable<{ access_token: string }>;
   }
 
+  getInvitationToken() {
+    return this.crud.read('/admin/invite')
+  }
+
   getUserInfo() {
     return this.crud.read('/user');
   }

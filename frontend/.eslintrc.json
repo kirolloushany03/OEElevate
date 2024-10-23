@@ -42,7 +42,8 @@
             "varsIgnorePattern": "^_",
             "ignoreRestSiblings": true
           }
-        ]
+        ],
+        "no-debugger": "warn"
       }
     },
     {
