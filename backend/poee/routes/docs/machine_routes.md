@@ -110,3 +110,80 @@ This endpoint retrieves all machines associated with the user's factory. Both ad
   "error": "user not found"
 }
 ```
+---
+### Get Machine by ID
+
+**Endpoint**:  
+`GET /api/machines/<int:id>`
+
+**Description**:  
+This endpoint retrieves a machine by its ID along with its OEE records and performance summary. It calculates the sum of good units and averages of availability, performance, quality, and OEE for the machine.
+
+**Authorization**:  
+- Requires JWT token.
+- Accessible by both admin and employee roles.
+
+**Path Parameters**:
+- `id` (integer): The ID of the machine.
+
+**Response**:
+
+**Success (200)**:
+
+- If the machine is found, returns its data and OEE records:
+
+```json
+{
+  "id": 1,
+  "name": "Machine_1",
+  "entries": [
+    {
+      "id": 101,
+      "run_time": 500,
+      "planned_production_time": 600,
+      "total_units": 1000,
+      "ideal_cycle_time": 0.5,
+      "good_units": 950,
+      "availability": 83.33,
+      "performance": 90.00,
+      "quality": 95.00,
+      "oee": 71.25,
+      "created_at": "2024-10-15T10:30:00Z"
+    },
+    {
+      "id": 102,
+      "run_time": 450,
+      "planned_production_time": 550,
+      "total_units": 900,
+      "ideal_cycle_time": 0.5,
+      "good_units": 880,
+      "availability": 81.82,
+      "performance": 92.73,
+      "quality": 97.78,
+      "oee": 74.00,
+      "created_at": "2024-10-14T09:15:00Z"
+    }
+  ],
+  "good_units": 1830,
+  "average_availability": 82.58,
+  "average_performance": 91.36,
+  "average_quality": 96.39,
+  "average_oee": 72.63,
+  "created_at": "2024-10-01T08:00:00Z"
+}
+```
+
+**Failure (404)**:
+
+- **Machine not found** (if the machine ID doesn't exist or doesn't belong to the current user):
+
+```json
+{
+  "error": "Machine not found"
+}
+```
+
+**Failure (403)**:
+
+- If the user is unauthorized to access the machine, a forbidden response will be returned (handled by decorator).
+---
