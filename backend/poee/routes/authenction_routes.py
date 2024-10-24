@@ -96,7 +96,7 @@ def login():
         return jsonify({"message": "Invalid credentials"}), 400
 
     if email and pbkdf2_sha256.verify(password, user.password):
-        access_token = create_access_token(identity=user.id, fresh=True, additional_claims={"is_employee": user.is_employee} )
+        access_token = create_access_token(identity=user.id, fresh=True, additional_claims={"is_employee": user.is_employee, "factory_id": user.factory_id})
         refresh_token = create_refresh_token(identity=user.id)
         return {"access_token": access_token, "refresh_token": refresh_token, "is_employee": user.is_employee}
 
