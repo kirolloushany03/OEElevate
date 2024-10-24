@@ -172,3 +172,58 @@ Authorization: Bearer <refresh_token>
 **Additional Details**:
 - **Access Token**: The `access_token` is a short-lived token used to authenticate further requests.
 - **Refresh Token**: The `refresh2_acesstoken` can be used to request a new access token once the current access token expires.
+
+---
+### Invite Employee
+
+**Endpoint**:  
+`GET /api/admin/invite`
+
+**Description**:  
+This endpoint allows an admin to generate an invitation token for an employee. The token is linked to the admin's factory and can be used to invite employees to join the factory.
+
+**Request Headers**:
+
+- **Authorization**: A valid JWT access token must be provided in the `Authorization` header.
+
+**Headers**:
+
+```http
+Authorization: Bearer <access_token>
+```
+
+**Response**:
+
+**Success (200)**:
+
+- If the admin is valid and associated with a factory, the server will return an invitation token.
+
+```json
+{
+  "invite_token": "string"  // The generated token for inviting employees
+}
+```
+
+**Failure (404)**:
+
+- **User Not Found**: If the admin does not exist in the database:
+
+```json
+{
+  "error": "User not found."
+}
+```
+
+**Failure (400)**:
+
+- **No Factory Associated**: If the admin is not linked to a factory:
+
+```json
+{
+  "error": "Factory ID not associated with this user."
+}
+```
+
+**Additional Details**:
+- **Authorization**: This route is protected, and only admin users can generate the token.
+- **Factory Association**: The token is generated based on the `factory_id` associated with the admin.
