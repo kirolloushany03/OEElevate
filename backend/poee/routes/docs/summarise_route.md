@@ -1,7 +1,3 @@
-Here's the documentation for the `summarize` endpoint:
-
----
-
 ### Get Machine Performance Summary
 
 **Endpoint:**
