@@ -6,6 +6,7 @@ from poee.claculations import Calculations
 from sqlalchemy import func
 from datetime import datetime
 from poee.decorator_function import is_employee_role
+from datetime import datetime
 
 
 @app.route('/api/machine/<int:id>/oeeRecords', methods=['POST'])
@@ -32,6 +33,7 @@ def add_oee_record(id):
     quality = Calculations.calculate_quality(good_units, total_units)
     oee = Calculations.calculate_oee(availability, performance, quality)
 
+    current_user = get_jwt_identity()
     # Create new OEERecord object
     new_oee_record = OEERecord(
         run_time=run_time,
@@ -44,7 +46,9 @@ def add_oee_record(id):
         quality=quality,
         oee=oee,
         created_at=created_at,
-        machine_id=id
+        last_modified_at=datetime.utcnow(),
+        machine_id=id,
+        last_modified_by=current_user
     )
 
     # Add to database session and commit
@@ -84,6 +88,8 @@ def get_oee_records(id):
 
     records_list = []
     for record in oee_records:
+        last_modifier = record.last_modifier
+
         records_list.append({
             'id': record.id,
             'machine': {
@@ -99,7 +105,11 @@ def get_oee_records(id):
             'performance': round(record.performance, 2),
             'quality': round(record.quality, 2),
             'oee': round(record.oee, 2),
-            'date': record.created_at.isoformat()
+            'date': record.created_at.isoformat(),
+            'last-modified-info':{
+                "last-modified-at": record.last_modified_at.isoformat() if record.last_modified_at else "Not modified",
+                "last-modified-by":last_modifier.username if last_modifier else "unknown",
+            }
         })
 
     return jsonify(records_list), 200
