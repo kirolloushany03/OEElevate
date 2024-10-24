@@ -222,3 +222,35 @@ If no machines or records are found for the user, an empty array is returned:
 []
 ```
 ---
+**Get Bad Units Rate**
+
+**Endpoint:**
+`GET /api/bad-units-rate`
+
+**Description:**
+This endpoint calculates and retrieves the bad units rate for the user's machines. The bad units rate is determined by the total number of units produced minus the good units, divided by the total units. This metric helps to understand the efficiency and quality of production.
+
+**Authorization:**
+
+- Requires JWT token.
+- Accessible by both admin and employee roles.
+
+**Response:**
+
+**Success (200):**
+
+Returns the bad units rate as a string, rounded to four decimal places.
+
+Example response:
+
+```
+0.1234
+```
+
+**Details:**
+
+- If there are no units produced (`total_units` is 0), the bad units rate will be `0`.
+
+**Failure Responses:**
+
+- If there is an error processing the request (not covered in the code), appropriate error handling should be implemented to return relevant status codes and messages.
