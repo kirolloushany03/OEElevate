@@ -30,4 +30,8 @@ export class MachineService {
     data.date = data.date.split('.')[0]
     return this.crud.create(`/machine/${machine.id}/oeeRecords`, data);
   }
+
+  getAiAdvice(machine: Machine) {
+    return this.crud.read(`/summarize/${machine.id}`);
+  }
 }
