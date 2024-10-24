@@ -1,6 +1,3 @@
-Here’s the documentation for the `register` endpoint formatted for a `README.md` file:
-
-```markdown
 ## Register User
 
 ### Endpoint:
