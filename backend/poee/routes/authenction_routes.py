@@ -25,6 +25,13 @@ def register():
     if not all([username, email, password]):
         return jsonify({"error": "Missing required field"}), 400
 
+    if is_employee == False:
+        if not company_name:
+            return jsonify({"error": "Missing the Company Name"})
+    else:
+        if not invite_token:
+            return jsonify({"error": "Missing the invite token"})
+
     existing_user_email = User.query.filter_by(email=email).first()
     existing_user_username = User.query.filter_by(username=username).first()
 
