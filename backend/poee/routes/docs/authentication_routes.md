@@ -127,48 +127,48 @@ This endpoint allows users (Admins and Employees) to log in by providing valid e
 - **Refresh Token**: The `refresh_token` can be used to request a new `access_token` without having to log in again.
 - **is_employee**: This boolean flag tells whether the logged-in user is an Admin (`false`) or an Employee (`true`).
 ---
-### User Login
+### Refresh Access Token
 
 **Endpoint**:  
-`POST /api/auth/login`
+`POST /api/auth/refresh`
 
 **Description**:  
-This endpoint allows users (Admins and Employees) to log in by providing valid email and password credentials.
+This endpoint allows users to refresh their access token using a valid refresh token. It provides a new access token and a refresh token.
 
-**Request Body**:
+**Request Headers**:
 
-```json
-{
-  "email": "string",    // required
-  "password": "string"  // required
-}
+- **Authorization**: A valid refresh token must be provided in the `Authorization` header as a Bearer token.
+
+**Headers**:
+
+```http
+Authorization: Bearer <refresh_token>
 ```
 
 **Response**:
 
 **Success (200)**:
 
-- If the credentials are valid, the server will return an access token and a refresh token.
+- If the refresh token is valid, the server will return a new access token and a refresh token.
 
 ```json
 {
-  "access_token": "string",   // JWT for accessing protected routes
-  "refresh_token": "string",  // JWT for refreshing the access token
-  "is_employee": true/false   // Whether the user is an employee or admin
+  "access_token": "string",        // New JWT for accessing protected routes
+  "refresh2_acesstoken": "string"  // New JWT for refreshing the access token
 }
 ```
 
-**Failure (400)**:
+**Failure (401)**:
 
-- **Invalid credentials**:
+- **Expired or Invalid Refresh Token**:
 
 ```json
 {
-  "message": "Invalid credentials"
+  "message": "request does not contain an access token",
+  "error": "authorization_required"
 }
 ```
 
 **Additional Details**:
-- **Access Token**: The `access_token` contains the user's identity and is used to authenticate further requests to the system.
-- **Refresh Token**: The `refresh_token` can be used to request a new `access_token` without having to log in again.
-- **is_employee**: This boolean flag tells whether the logged-in user is an Admin (`false`) or an Employee (`true`).
+- **Access Token**: The `access_token` is a short-lived token used to authenticate further requests.
+- **Refresh Token**: The `refresh2_acesstoken` can be used to request a new access token once the current access token expires.
