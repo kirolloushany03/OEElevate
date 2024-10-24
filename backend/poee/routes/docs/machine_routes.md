@@ -187,3 +187,88 @@ This endpoint retrieves a machine by its ID along with its OEE records and perfo
 
 - If the user is unauthorized to access the machine, a forbidden response will be returned (handled by decorator).
 ---
+**Get Machine Summary**
+
+**Endpoint:**
+`GET /api/machines/summary`
+
+**Description:**
+This endpoint retrieves a summary of all machines in the current user's factory, including OEE (Overall Equipment Effectiveness) records and performance metrics. It calculates the total number of good units and averages for availability, performance, quality, and OEE for each machine.
+
+**Authorization:**
+
+- Requires JWT token.
+- Accessible by both admin and employee roles.
+
+**Response:**
+
+**Success (200):**
+
+If machines are found, returns a list of machine summaries with their latest OEE entries and performance stats:
+
+```json
+[
+  {
+    "id": 1,
+    "machine_name": "Machine_1",
+    "latest_entries": [
+      {
+        "created_at": "2024-10-15T10:30:00Z",
+        "good_units": 950,
+        "availability": 83.33,
+        "performance": 90.00,
+        "quality": 95.00,
+        "oee": 71.25
+      },
+      {
+        "created_at": "2024-10-14T09:15:00Z",
+        "good_units": 880,
+        "availability": 81.82,
+        "performance": 92.73,
+        "quality": 97.78,
+        "oee": 74.00
+      }
+    ],
+    "total_good_units": 1830,
+    "average_availability": 82.58,
+    "average_performance": 91.36,
+    "average_quality": 96.39,
+    "average_oee": 72.63
+  },
+  {
+    "id": 2,
+    "machine_name": "Machine_2",
+    "latest_entries": [
+      {
+        "created_at": "2024-10-15T10:30:00Z",
+        "good_units": 1020,
+        "availability": 85.00,
+        "performance": 88.00,
+        "quality": 98.00,
+        "oee": 72.60
+      }
+    ],
+    "total_good_units": 1020,
+    "average_availability": 85.00,
+    "average_performance": 88.00,
+    "average_quality": 98.00,
+    "average_oee": 72.60
+  }
+]
+```
+
+**Failure (200 with error):**
+
+If the user is not found:
+
+```json
+{
+  "error": "user not found"
+}
+```
+
+If no machines are found in the user's factory:
+
+```json
+[]
+```
