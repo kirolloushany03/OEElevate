@@ -61,9 +61,13 @@ class OEERecord(db.Model):
 
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())
     machine_id = db.Column(db.Integer, db.ForeignKey('machine.id'))
-    
+
+    last_modified_at = db.Column(db.DateTime, onupdate=datetime.utcnow)  # Auto-update the timestamp when modified
+    last_modified_by = db.Column(db.Integer, db.ForeignKey('user.id'))  # Link to the user who last modified the record
+    last_modifier = db.relationship('User', foreign_keys=[last_modified_by])  # Relationship with the User who modified it
+
     def __repr__(self):
         return (f'<OEERecord id={self.id}, run_time={self.run_time}, planned_production_time={self.planned_production_time}, '
                 f'total_units={self.total_units}, ideal_cycle_time={self.ideal_cycle_time}, good_units={self.good_units}, '
                 f'availability={self.availability}, performance={self.performance}, quality={self.quality}, oee={self.oee}, '
-                f'created_at={self.created_at}, machine_id={self.machine_id}>')
+                f'created_at={self.created_at}, machine_id={self.machine_id}, last_modified_by={self.last_modified_by}>')
