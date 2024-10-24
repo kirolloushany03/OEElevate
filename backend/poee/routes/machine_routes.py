@@ -145,11 +145,8 @@ def get_machine_summary():
     if not user:
         return jsonify({"error":"user not found"}), 200
 
-    print(user)
     factory_id = user.factory_id
     machines = Machine.query.filter_by(factory_id=factory_id).order_by(Machine.created_at.desc()).all()
-
-    print(machines)
 
     if not machines:
         return jsonify([]), 200
