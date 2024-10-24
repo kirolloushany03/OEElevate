@@ -14,9 +14,9 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-app.config['SECRET_KEY'] = 'f908ced235bdd1bb2a13d72717b22fba87f29ccc'
-app.config['JWT_SECRET_KEY'] = 'f908ced235bdd1bb2a13d72717b22fba87f29ccc'
-app.config['SECURITY_PASSWORD_SALT'] ='c63fa8c970cd64e39b8a2ca62ad192a7c55ad20975544499'
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
+app.config['JWT_SECRET_KEY'] = os.getenv("JWT_SECRET_KEY")
+app.config['SECURITY_PASSWORD_SALT'] = os.getenv("SECURITY_PASSWORD_SALT")
 app.config['SQLALCHEMY_DATABASE_URI']= 'sqlite:///oee.db'
 
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(minutes=15)
