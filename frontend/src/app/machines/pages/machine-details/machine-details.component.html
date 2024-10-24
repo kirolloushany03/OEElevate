@@ -41,3 +41,23 @@
     <oee-entry-form #entryForm (submitted)="getMachineById(machine?.id)"></oee-entry-form>
   </ng-template>
 </ng-container>
+
+<dx-popup [width]="500" [height]="300" [showCloseButton]="true" [hideOnOutsideClick]="true" #popup>
+  <div *dxTemplate="let data of 'content'">
+    <div class="flex flex-col items-center" [innerHTML]="aiAdvice">
+    </div>
+  </div>
+  <div *dxTemplate="let data of 'title'">
+    <h1>AI Advice</h1>
+  </div>
+
+  <button class="btn bg-primary text-fg-primary" (click)="popup.instance.hide()">Close</button>
+</dx-popup>
+
+<button title="Get AI advice"
+        class="fixed  bottom-6 right-10 w-14 h-auto aspect-square rounded-full bg-primary hover:bg-primary-dark"
+        [class.cursor-progress]="loadingAiAdvice"
+        [disabled]="loadingAiAdvice"
+        (click)="getAiAdvice()">
+        <i class="fa-solid fa-robot text-3xl -mt-1"></i>
+</button>

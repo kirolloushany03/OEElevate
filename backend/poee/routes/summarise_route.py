@@ -3,12 +3,9 @@ from poee import app, chat_session
 from poee.models import Machine, OEERecord
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
-@app.route('/api/summarize', methods=['POST'])
+@app.route('/api/summarize/<int:machine_id>', methods=['GET'])
 @jwt_required()
-def summarize():
-    current_user_id = get_jwt_identity()
-    data = request.get_json()
-    machine_id = data.get('machine_id')
+def summarize(machine_id):
 
     if not machine_id:
         return jsonify({"error": "machine_id is required"}), 400
@@ -30,7 +27,7 @@ def summarize():
         quality = oee_record.quality
         oee = oee_record.oee
 
-        prompt = f"Summarize the performance of machine '{machine.machine_name}' with an availability of {availability}%, performance of {performance}%, quality of {quality}%, and OEE score of {oee}% and tell me what to do to make it better. and make it only in few lines just make small one what is the porblem and solution to it"
+        prompt = f"Summarize the performance of machine '{machine.machine_name}' with an availability of {availability * 100}%, performance of {performance * 100}%, quality of {quality * 100}%, and OEE score of {oee * 100}% and tell me what to do to make it better. and make it only in few lines just make small one what is the porblem and solution to it"
 
         # Generate the summary using the chat session
         response = chat_session.send_message(prompt)
