@@ -51,7 +51,7 @@ def get_all_machines_info():
     machines = Machine.query.filter_by(user_id=user_id).all()
 
     if not machines:
-        return jsonify({"message":"no machines for this user"}), 200
+        return jsonify([]), 200
 
     machine_list = []
     for machine in machines:

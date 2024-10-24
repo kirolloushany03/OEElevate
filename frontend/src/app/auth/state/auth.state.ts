@@ -5,6 +5,7 @@ import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
 import { map, tap } from 'rxjs';
 import { storeLocally } from '../../utlils/operators';
+import { UserInfo } from '../../models/auth';
 
 export interface AuthTokens {
     access_token?: string;
@@ -14,7 +15,7 @@ export interface AuthTokens {
 export interface AuthStateModel {
     token: string | null;
     loggedIn: boolean | null;
-    userInfo: unknown | null;
+    userInfo: UserInfo | null;
     signUpError: string | null;
     loginError: string | null;
 }
@@ -36,6 +37,21 @@ export class AuthState {
     @Selector()
     static isLoggedIn(state: AuthStateModel) {
         return state?.loggedIn;
+    }
+
+    @Selector()
+    static userInfo(state: AuthStateModel) {
+        return state?.userInfo;
+    }
+
+    @Selector()
+    static isEmployee(state: AuthStateModel) {
+        return state?.userInfo?.is_employee || true
+    }
+
+    @Selector()
+    static isAdmin(state: AuthStateModel) {
+        return !(state?.userInfo?.is_employee) || false
     }
 
     @Action(Login)
@@ -67,9 +83,9 @@ export class AuthState {
 
         return this.authService.getUserInfo().pipe(
             tap({
-                next: (userInfo) => {
+                next: (userInfo: unknown) => {
                     patchState({
-                        userInfo,
+                        userInfo: userInfo as UserInfo,
                         loggedIn: true
                     });
                 },

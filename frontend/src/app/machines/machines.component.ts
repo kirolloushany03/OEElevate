@@ -10,6 +10,7 @@ import { SlidingOverlayComponent } from '../shared/sliding-overlay/sliding-overl
 import { EntriesTableComponent } from './components/entries-table/entries-table.component';
 import { EntryFormComponent } from './components/entry-form/entry-form.component';
 import { RouterModule } from '@angular/router';
+import { AuthState } from '../auth/state/auth.state';
 
 @Component({
   selector: 'oee-machines',
@@ -41,6 +42,8 @@ export class MachinesComponent {
       machine_name: ''
     }
   }
+
+  isAdmin$ = this.store.select(AuthState.isAdmin)
 
   openMachineForm() {
     this.slidingOverlay?.slideIn();

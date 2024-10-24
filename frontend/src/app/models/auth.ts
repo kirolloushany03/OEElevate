@@ -11,3 +11,11 @@ export interface LoginCredentials {
   email: string;
   password: string;
 }
+
+export interface UserInfo {
+  username: string;
+  email: string;
+  is_employee: boolean;
+  company_name: string;
+  created_at: string;
+}
