@@ -126,3 +126,49 @@ This endpoint allows users (Admins and Employees) to log in by providing valid e
 - **Access Token**: The `access_token` contains the user's identity and is used to authenticate further requests to the system.
 - **Refresh Token**: The `refresh_token` can be used to request a new `access_token` without having to log in again.
 - **is_employee**: This boolean flag tells whether the logged-in user is an Admin (`false`) or an Employee (`true`).
+---
+### User Login
+
+**Endpoint**:  
+`POST /api/auth/login`
+
+**Description**:  
+This endpoint allows users (Admins and Employees) to log in by providing valid email and password credentials.
+
+**Request Body**:
+
+```json
+{
+  "email": "string",    // required
+  "password": "string"  // required
+}
+```
+
+**Response**:
+
+**Success (200)**:
+
+- If the credentials are valid, the server will return an access token and a refresh token.
+
+```json
+{
+  "access_token": "string",   // JWT for accessing protected routes
+  "refresh_token": "string",  // JWT for refreshing the access token
+  "is_employee": true/false   // Whether the user is an employee or admin
+}
+```
+
+**Failure (400)**:
+
+- **Invalid credentials**:
+
+```json
+{
+  "message": "Invalid credentials"
+}
+```
+
+**Additional Details**:
+- **Access Token**: The `access_token` contains the user's identity and is used to authenticate further requests to the system.
+- **Refresh Token**: The `refresh_token` can be used to request a new `access_token` without having to log in again.
+- **is_employee**: This boolean flag tells whether the logged-in user is an Admin (`false`) or an Employee (`true`).
