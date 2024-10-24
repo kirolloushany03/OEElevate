@@ -166,3 +166,59 @@ If the machine exists but has no OEE records, an empty array is returned:
 []
 ```
 ---
+**Get Machines with Lowest OEE**
+
+**Endpoint:**
+`GET /api/machines/lowest_oee`
+
+**Description:**
+This endpoint retrieves a list of machines with the lowest average Overall Equipment Effectiveness (OEE) for the user. It ranks the machines by their average OEE in ascending order and provides additional metrics such as total good units, average availability, performance, and quality for each machine.
+
+**Authorization:**
+
+- Requires JWT token.
+- Accessible by both admin and employee roles.
+
+**Query Parameters:**
+
+- `count` (integer, optional): The number of machines to retrieve. Defaults to 5 if not provided.
+
+**Response:**
+
+**Success (200):**
+
+Returns a list of machines ordered by their lowest average OEE. Each machine includes its name, total good units, and average OEE metrics.
+
+Example response:
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Machine_1",
+    "good_units": 5000,
+    "average_availability": 85.50,
+    "average_performance": 87.20,
+    "average_quality": 90.00,
+    "average_oee": 73.12
+  },
+  {
+    "id": 2,
+    "name": "Machine_2",
+    "good_units": 4200,
+    "average_availability": 82.75,
+    "average_performance": 85.40,
+    "average_quality": 88.90,
+    "average_oee": 70.45
+  }
+]
+```
+
+**Success with No Data (200):**
+
+If no machines or records are found for the user, an empty array is returned:
+
+```json
+[]
+```
+---
