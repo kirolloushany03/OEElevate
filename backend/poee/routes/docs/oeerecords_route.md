@@ -77,3 +77,92 @@ If the request body is invalid or missing required fields, a `400 Bad Request` e
 - **Quality**: `good_units / total_units`
 - **OEE**: `availability * performance * quality`
 
+---
+**Get OEE Records for Machine**
+
+**Endpoint:**
+`GET /api/machine/<int:id>/oeeRecords`
+
+**Description:**
+This endpoint retrieves all OEE (Overall Equipment Effectiveness) records for a specific machine identified by its ID. It returns the run time, production details, and OEE metrics such as availability, performance, and quality for each record. Additionally, it includes information about when and by whom the record was last modified.
+
+**Authorization:**
+
+- Requires JWT token.
+- Accessible by both admin and employee roles.
+
+**Path Parameters:**
+
+- `id` (integer): The ID of the machine for which OEE records are being retrieved.
+
+**Response:**
+
+**Success (200):**
+
+If OEE records are found, it returns a list of all records for the machine:
+
+```json
+[
+  {
+    "id": 101,
+    "machine": {
+      "id": 1,
+      "name": "Machine_1"
+    },
+    "run_time": 450,
+    "planned_production_time": 500,
+    "total_units": 1000,
+    "ideal_cycle_time": 0.5,
+    "good_units": 950,
+    "availability": 90.00,
+    "performance": 88.00,
+    "quality": 95.00,
+    "oee": 75.60,
+    "date": "2024-10-15T10:30:00",
+    "last-modified-info": {
+      "last-modified-at": "2024-10-16T12:00:00",
+      "last-modified-by": "john_doe"
+    }
+  },
+  {
+    "id": 102,
+    "machine": {
+      "id": 1,
+      "name": "Machine_1"
+    },
+    "run_time": 400,
+    "planned_production_time": 450,
+    "total_units": 900,
+    "ideal_cycle_time": 0.5,
+    "good_units": 850,
+    "availability": 88.89,
+    "performance": 85.00,
+    "quality": 94.44,
+    "oee": 71.33,
+    "date": "2024-10-14T09:15:00",
+    "last-modified-info": {
+      "last-modified-at": "Not modified",
+      "last-modified-by": "unknown"
+    }
+  }
+]
+```
+
+**Failure (404):**
+
+If the machine with the specified ID is not found:
+
+```json
+{
+  "error": "Machine not found"
+}
+```
+
+**Success with No Records (200):**
+
+If the machine exists but has no OEE records, an empty array is returned:
+
+```json
+[]
+```
+---
