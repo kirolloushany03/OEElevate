@@ -22,8 +22,15 @@ def register():
     invite_token = data.get('invite_token', None)
     is_employee = data.get('is_employee', False)
 
-    if not all([username, company_name, email, password]):
+    if not all([username, email, password]):
         return jsonify({"error": "Missing required field"}), 400
+
+    if is_employee == False:
+        if not company_name:
+            return jsonify({"error": "Missing the Company Name"})
+    else:
+        if not invite_token:
+            return jsonify({"error": "Missing the invite token"})
 
     existing_user_email = User.query.filter_by(email=email).first()
     existing_user_username = User.query.filter_by(username=username).first()
@@ -96,7 +103,7 @@ def login():
         return jsonify({"message": "Invalid credentials"}), 400
 
     if email and pbkdf2_sha256.verify(password, user.password):
-        access_token = create_access_token(identity=user.id, fresh=True, additional_claims={"is_employee": user.is_employee} )
+        access_token = create_access_token(identity=user.id, fresh=True, additional_claims={"is_employee": user.is_employee})
         refresh_token = create_refresh_token(identity=user.id)
         return {"access_token": access_token, "refresh_token": refresh_token, "is_employee": user.is_employee}
 

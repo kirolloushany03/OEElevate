@@ -38,6 +38,7 @@
 </div>
 
 <button title="Add Machine"
+        *ngIf="isAdmin$ | async"
         class="fixed bottom-6 right-10 w-14 h-auto aspect-square rounded-full bg-primary hover:rotate-180 hover:bg-primary-dark transition-all"
         (click)="openMachineForm()">
   <i class="fa-solid fa-plus text-3xl"></i>

@@ -1,7 +1,7 @@
 import { DxFormComponent, DxFormModule } from 'devextreme-angular';
 import { Component, ViewChild } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { Login } from '../../state/auth.actions';
+import { GetUserInfo, Login } from '../../state/auth.actions';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -34,6 +34,7 @@ export class LoginComponent {
     e.preventDefault();
 
     this.store.dispatch(new Login(this.loginForm)).subscribe(() => {
+      this.store.dispatch(new GetUserInfo());
       this.router.navigate(['/dashboard']);
     })
   }

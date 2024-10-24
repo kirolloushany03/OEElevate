@@ -13,17 +13,22 @@ from poee.decorator_function import is_employee_role
 def create_machine():
     data = request.get_json()
 
-    user_id = get_jwt_identity()
     machine_name = data.get('machine_name')
-
     if not machine_name:
         return jsonify({"error":"Missing required feild: machine_name"}), 400
+
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({"error":"user not found"}), 200
+
+    factory_id = user.factory_id
 
     existing_machine = Machine.query.filter_by(machine_name=machine_name).first()
     if existing_machine:
         return jsonify({"errors":"the machine name already exists"}), 400
 
-    new_machine = Machine(machine_name=machine_name, user_id=user_id)
+    new_machine = Machine(machine_name=machine_name, user_id=user_id, factory_id=factory_id)
 
     db.session.add(new_machine)
     db.session.commit()
@@ -44,14 +49,14 @@ def create_machine():
 def get_all_machines_info():
     user_id = get_jwt_identity()
     user = User.query.get(user_id)
-
     if not user:
         return jsonify({"error":"user not found"}), 200
 
-    machines = Machine.query.filter_by(user_id=user_id).all()
+    factory_id = user.factory_id
+    machines = Machine.query.filter_by(factory_id=factory_id).all()
 
     if not machines:
-        return jsonify({"message":"no machines for this user"}), 200
+        return jsonify([]), 200
 
     machine_list = []
     for machine in machines:
@@ -136,7 +141,12 @@ def get_machine_by_id(id):
 @is_employee_role([False, True])
 def get_machine_summary():
     user_id = get_jwt_identity()
-    machines = Machine.query.filter_by(user_id=user_id).order_by(Machine.created_at.desc()).all()
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({"error":"user not found"}), 200
+
+    factory_id = user.factory_id
+    machines = Machine.query.filter_by(factory_id=factory_id).order_by(Machine.created_at.desc()).all()
 
     if not machines:
         return jsonify([]), 200

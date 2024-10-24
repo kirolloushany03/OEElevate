@@ -6,7 +6,15 @@
       <dxi-validation-rule type="stringLength" [min]="3" message="Username must be at least 3 characters long"></dxi-validation-rule>
     </dxi-item>
 
-    <dxi-item dataField="company_name">
+    <dxi-item dataField="is_employee" type="checkbox" [editorOptions]="{mode: 'checkbox'}">
+      <dxo-label text="I am an employee"></dxo-label>
+    </dxi-item>
+
+    <dxi-item dataField="invite_token" *ngIf="signUpForm.is_employee">
+      <dxi-validation-rule type="required" message="Token is required"></dxi-validation-rule>
+    </dxi-item>
+
+    <dxi-item dataField="company_name" *ngIf="!signUpForm.is_employee">
       <dxi-validation-rule type="required" message="Company name is required"></dxi-validation-rule>
       <dxi-validation-rule type="stringLength" [min]="3" message="Company name must be at least 3 characters long"></dxi-validation-rule>
     </dxi-item>
@@ -21,13 +29,13 @@
       <dxi-validation-rule type="pattern" [pattern]="passwordPattern" message="Password must contain at least 8 characters, 1 number, 1 uppercase and 1 lowercase letter"></dxi-validation-rule>
     </dxi-item>
 
-    <dxi-item dataField="confirmPassword" type="password" [editorOptions]="{mode:'password'}">
+    <dxi-item dataField="confirm_password" type="password" [editorOptions]="{mode:'password'}">
       <dxi-validation-rule type="required" message="Password is required"></dxi-validation-rule>
       <dxi-validation-rule type="compare" [comparisonTarget]="getPassword.bind(this)" message="Must be the same as password"></dxi-validation-rule>
     </dxi-item>
 
     <dxi-item itemType="button">
-      <dxo-button-options [useSubmitBehavior]="true" text="Log in"></dxo-button-options>
+      <dxo-button-options [useSubmitBehavior]="true" text="Sign up"></dxo-button-options>
     </dxi-item>
   </dx-form>
 </form>
