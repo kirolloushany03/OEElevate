@@ -42,10 +42,10 @@
     <dx-date-box formControlName="date"></dx-date-box>
 
     <div class="flex justify-end mt-10">
-      <button class="btn">
+      <button (click)="close()" type="button" class="btn">
         Cancel
       </button>
-      <button class="default-btn">
+      <button type="submit" class="default-btn">
         Save
       </button>
     </div>

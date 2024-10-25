@@ -7,7 +7,7 @@
   <ng-template #machineTemplate>
     <div class="flex flex-wrap items-center">
       <div>
-        <h1>{{machine.machine_name}} - Details</h1>
+        <h1>{{machine?.machine_name ?? machine?.name}} - Details</h1>
         <p>OEE: {{machine.average_oee | percent:'1.1-1'}}</p>
       </div>
 
@@ -38,7 +38,7 @@
     </dx-chart>
 
     <oee-entries-table [entries]="(entries$ | async) ?? []"></oee-entries-table>
-    <oee-entry-form #entryForm (submitted)="getMachineById(machine?.id)"></oee-entry-form>
+    <oee-entry-form (submitted)="getMachineById(machine?.id)" #entryForm (submitted)="getMachineById(machine?.id)"></oee-entry-form>
   </ng-template>
 </ng-container>
 

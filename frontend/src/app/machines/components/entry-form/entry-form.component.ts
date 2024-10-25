@@ -23,6 +23,8 @@ export class EntryFormComponent {
   @Output() submiting = new EventEmitter();
   @Output() closing = new EventEmitter();
 
+  @Output() submitted = new EventEmitter();
+
   machine: Machine | null = null;
 
   entryForm: FormGroup = this.fb.group({
@@ -150,6 +152,7 @@ export class EntryFormComponent {
       ...this.entryForm.value,
       date: this.dateWithoutTimezone(new Date(this.entryForm.value.date)).toISOString()
     })).subscribe(() => {
+      this.submitted.emit();
       this.close();
       this.entryForm.reset();
     });

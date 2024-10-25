@@ -3,6 +3,7 @@ import { OeeRecord } from "./oee-record";
 export interface Machine {
   id: number;
   machine_name: string;
+  name?:string;
   created_at: string;
 }
 

@@ -75,9 +75,11 @@ def get_all_machines_info():
 @is_employee_role([False, True])
 def get_machine_by_id(id):
     user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    factory_id = user.factory_id
 
     # Fetch the machine by ID and ensure it belongs to the current user
-    machine = Machine.query.filter_by(id=id, user_id=user_id).first()
+    machine = Machine.query.filter_by(id=id, factory_id=factory_id).first()
     if not machine:
         return jsonify({"error": "Machine not found"}), 404
 
